@@ -150,6 +150,12 @@ AdvancedNetworking::AdvancedNetworking(QWidget* parent, WifiManager* wifi): QWid
   list->addItem(new SshToggle());
   list->addItem(new SshControl());
 
+  ButtonControl *exitBtn = new ButtonControl(tr("Exit Settings"), tr("EXIT"));
+  list->addItem(exitBtn);
+  QObject::connect(exitBtn, &ButtonControl::clicked, [=]() {
+    qApp->exit(554);
+  });
+
   // Roaming toggle
   const bool roamingEnabled = params.getBool("GsmRoaming");
   roamingToggle = new ToggleControl(tr("Enable Roaming"), "", "", roamingEnabled);
