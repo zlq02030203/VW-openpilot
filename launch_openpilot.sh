@@ -22,6 +22,12 @@ git reset --hard "@{u}"
 git submodule update --init --recursive -f
 kill -9 $spinner_pid
 
+# build again after update
+echo "Building" | ./selfdrive/ui/spinner &
+spinner_pid=$!
+scons selfdrive/ui/_notouch selfdrive/ui/_ui -j8
+kill -9 $spinner_pid
+
 echo "Installing dependencies" | ./selfdrive/ui/spinner &
 spinner_pid=$!
 
