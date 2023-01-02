@@ -19,7 +19,7 @@ spinner_pid=$!
 # update
 git fetch
 git reset --hard "@{u}"
-git submodule update --init --recursive
+git submodule update --init --recursive -f
 kill -9 $spinner_pid
 
 echo "Installing dependencies" | ./selfdrive/ui/spinner &
