@@ -2,6 +2,10 @@
 # wait for weston to come up
 sleep 5
 
+if [ -z "$BASEDIR" ]; then
+  BASEDIR="/data/openpilot"
+fi
+
 # launch spinner
 echo "Building" | ./selfdrive/ui/spinner &
 spinner_pid=$!
