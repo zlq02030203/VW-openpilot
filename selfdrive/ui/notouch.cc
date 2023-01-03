@@ -22,7 +22,7 @@ MainWindowNoTouch::MainWindowNoTouch(QWidget *parent) : QWidget(parent) {
   main_layout = new QVBoxLayout(this);
   main_layout->setMargin(0);
 
-  QDir videos_path = QDir(VIDEOS_PATH, "*(.mp4|mkv)");
+  QDir videos_path = QDir(VIDEOS_PATH, "\\.(mp4|mkv)$");
   QString content_name;
   while ((content_name = MultiOptionDialog::getSelection(tr("Select content"), videos_path.entryList(), "", this)).isEmpty()) {
     qDebug() << "No content selected!";
