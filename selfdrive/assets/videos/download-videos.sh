@@ -12,6 +12,6 @@ while read -r line; do
   if [ -n "$line" ]; then
     wget "$AZ_BASEDIR/$line" -O "./$line"
   fi
-done < <(curl -w '\n' -s "$MANIFEST")
+done < <(curl -w '\n' -s "$MANIFEST" --fail)
 
 echo "Success!"
