@@ -5,7 +5,7 @@ import os
 import shutil
 from common.basedir import BASEDIR
 
-AZ_BASEDIR = "https://commadataci.blob.core.windows.net/cesdemo"
+AZ_BASEDIR = "https://commadataci.blob.core.windows.net/cesdemo/out"
 MANIFEST = f"{AZ_BASEDIR}/manifest.txt"
 VIDEOS_PATH = f"{BASEDIR}/selfdrive/assets/videos/out"
 
