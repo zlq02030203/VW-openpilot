@@ -5,7 +5,7 @@ import os
 import shutil
 from common.basedir import BASEDIR
 
-AZ_BASEDIR = "https://commadataci.blob.core.windows.net/cesdemo/out"
+AZ_BASEDIR = "https://commadataci.blob.core.windows.net/cesdemo"
 MANIFEST = f"{AZ_BASEDIR}/manifest.txt"
 VIDEOS_PATH = f"{BASEDIR}/selfdrive/assets/videos/out"
 
@@ -20,7 +20,7 @@ manifest = [f.replace('out/', '') for f in manifest]
 for f in manifest:
   print(f'Downloading {f}')
   file_path = os.path.join(VIDEOS_PATH, f)
-  urllib.request.urlretrieve(os.path.join(AZ_BASEDIR, f), file_path)
+  urllib.request.urlretrieve(os.path.join(AZ_BASEDIR, "out", f), file_path)
 
 for f in os.listdir(VIDEOS_PATH):
   if f not in manifest:
