@@ -8,10 +8,21 @@ MANIFEST="$AZ_BASEDIR/manifest.txt"
 echo "downloading videos"
 mkdir -p out/
 
-while read -r line; do
-  if [ -n "$line" ]; then
-    wget "$AZ_BASEDIR/$line" -O "./$line"
+videos=$(curl -w '\n' -s "$MANIFEST" --fail)
+
+#while read -r line; do
+#  if [ -n "$line" ]; then
+#    wget "$AZ_BASEDIR/$line" -O "./$line"
+#  fi
+#done <<< "$videos"
+
+for f in out/*; do
+  echo "$f"
+  echo "$videos"
+  if ! grep -q "$string" <<< "$videos"; then
+    echo "Removing $f"
+    rm "$f"
   fi
-done < <(curl -w '\n' -s "$MANIFEST" --fail)
+done;
 
 echo "Success!"
