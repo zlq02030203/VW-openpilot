@@ -54,7 +54,8 @@ MainWindowNoTouch::MainWindowNoTouch(QWidget *parent) : QWidget(parent) {
   args << "-c" << "while true; do " + GST_VIDEO_CMD.arg(content_name) + "; done";
   process->start(command, args);
 
-  QObject::connect(process, &QProcess::started, [=](){
+  QTimer::singleShot(5000, [&]() {
+//  QObject::connect(process, &QProcess::started, [=](){
     // transparent touch capture widget
     TransparentWidget *w = new TransparentWidget();
     w->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
