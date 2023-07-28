@@ -27,15 +27,6 @@ MainWindowNoTouch::MainWindowNoTouch(QWidget *parent) : QWidget(parent) {
   setpriority(PRIO_PROCESS, 0, -5);
   Hardware::set_brightness(80);
 
-  // transparent touch capture widget
-  TransparentWidget *w = new TransparentWidget();
-  w->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
-//  w->setStyleSheet("background-color:black;");
-  w->setAttribute(Qt::WA_TranslucentBackground);
-  w->setGeometry(QRect(QPoint(0, 0), QPoint(2160, 1080)));
-  w->show();
-  // transparent touch capture widget
-
   main_layout = new QVBoxLayout(this);
   main_layout->setMargin(0);
 
@@ -62,6 +53,17 @@ MainWindowNoTouch::MainWindowNoTouch(QWidget *parent) : QWidget(parent) {
   QStringList args;
   args << "-c" << "while true; do " + GST_VIDEO_CMD.arg(content_name) + "; done";
   process->start(command, args);
+
+  QObject::connect(process, &QProcess::started, [=](){
+    // transparent touch capture widget
+    TransparentWidget *w = new TransparentWidget();
+    w->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+    //  w->setStyleSheet("background-color:black;");
+    w->setAttribute(Qt::WA_TranslucentBackground);
+    w->setGeometry(QRect(QPoint(0, 0), QPoint(2160, 1080)));
+    w->show();
+    // transparent touch capture widget
+  });
 
   // no outline to prevent the focus rectangle
   setStyleSheet(R"(
