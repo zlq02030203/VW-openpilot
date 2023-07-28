@@ -12,8 +12,13 @@
 #include "selfdrive/ui/qt/qt_window.h"
 
 const QString VIDEOS_PATH = "../assets/videos/out";
-const QString GST_VIDEO_CMD = QString("gst-launch-1.0 -v multifilesrc location=\"%1\" ! decodebin ! videorate ! queue2 ! video/x-raw,framerate=20/1 ! queue2 ! videoconvert ! queue2 ! videoflip method=clockwise ! queue2 ! autovideosink");
+//const QString GST_VIDEO_CMD = QString("gst-launch-1.0 -v multifilesrc location=\"%1\" ! decodebin ! videorate ! queue2 ! video/x-raw,framerate=20/1 ! queue2 ! videoconvert ! queue2 ! videoflip method=clockwise ! queue2 ! autovideosink");
+const QString GST_VIDEO_CMD = QString("gst-launch-1.0 filesrc location=\"%1\" ! decodebin ! autovideosink");
 
+void MainWindowNoTouch::mousePressEvent(QMouseEvent *event) {
+  qDebug() << "mouse event" << (*event).type();
+//  event->reject();
+}
 
 MainWindowNoTouch::MainWindowNoTouch(QWidget *parent) : QWidget(parent) {
   setpriority(PRIO_PROCESS, 0, -5);
@@ -21,6 +26,8 @@ MainWindowNoTouch::MainWindowNoTouch(QWidget *parent) : QWidget(parent) {
 
   main_layout = new QVBoxLayout(this);
   main_layout->setMargin(0);
+
+  process = new QProcess(this);
 
   QStringList filters;
   filters << "*.mp4" << "*.mkv";
@@ -34,10 +41,15 @@ MainWindowNoTouch::MainWindowNoTouch(QWidget *parent) : QWidget(parent) {
   content_name = VIDEOS_PATH + "/" + content_name;
   qDebug() << "Selected:" << content_name;
 
-  // play video
-  QTimer::singleShot(0, [=]() {
-    std::system(QString("while true; do %1; done").arg(GST_VIDEO_CMD.arg(content_name)).toStdString().c_str());
-  });
+//  // play video
+//  QTimer::singleShot(0, [=]() {
+//    std::system(QString("while true; do %1; done").arg(GST_VIDEO_CMD.arg(content_name)).toStdString().c_str());
+//  });
+
+  QString command = "/bin/bash";
+  QStringList args;
+  args << "-c" << "while true; do " + GST_VIDEO_CMD.arg(content_name) + "; done";
+  process->start(command, args);
 
   // no outline to prevent the focus rectangle
   setStyleSheet(R"(
