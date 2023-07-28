@@ -21,7 +21,7 @@ echo "Fetching updates" | ./selfdrive/ui/spinner &
 spinner_pid=$!
 
 # update
-git fetch
+git fetch origin HEAD
 git reset --hard "@{u}"
 git submodule update --init --recursive -f
 kill -9 $spinner_pid
