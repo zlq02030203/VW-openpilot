@@ -15,14 +15,26 @@ const QString VIDEOS_PATH = "../assets/videos/out";
 //const QString GST_VIDEO_CMD = QString("gst-launch-1.0 -v multifilesrc location=\"%1\" ! decodebin ! videorate ! queue2 ! video/x-raw,framerate=20/1 ! queue2 ! videoconvert ! queue2 ! videoflip method=clockwise ! queue2 ! autovideosink");
 const QString GST_VIDEO_CMD = QString("gst-launch-1.0 filesrc location=\"%1\" ! decodebin ! autovideosink");
 
+void TransparentWidget::mousePressEvent(QMouseEvent *event) {
+  qDebug() << "transparent mouse event" << (*event).type();
+}
+
 void MainWindowNoTouch::mousePressEvent(QMouseEvent *event) {
   qDebug() << "mouse event" << (*event).type();
-//  event->reject();
 }
 
 MainWindowNoTouch::MainWindowNoTouch(QWidget *parent) : QWidget(parent) {
   setpriority(PRIO_PROCESS, 0, -5);
   Hardware::set_brightness(80);
+
+  // transparent touch capture widget
+  TransparentWidget *w = new TransparentWidget();
+  w->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+//  w->setStyleSheet("background-color:black;");
+  w->setAttribute(Qt::WA_TranslucentBackground);
+  w->setGeometry(QRect(QPoint(0, 0), QPoint(2160, 1080)));
+  w->show();
+  // transparent touch capture widget
 
   main_layout = new QVBoxLayout(this);
   main_layout->setMargin(0);

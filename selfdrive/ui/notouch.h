@@ -9,6 +9,21 @@
 #include "selfdrive/ui/qt/offroad/settings.h"
 #include "tools/replay/replay.h"
 
+#include <QWidget>
+#include <QTouchEvent>
+
+class TransparentWidget : public QWidget {
+    Q_OBJECT
+
+public:
+  TransparentWidget(QWidget* parent = nullptr) : QWidget(parent) {
+//    setAttribute(Qt::WA_TransparentForMouseEvents);
+  }
+
+protected:
+  void mousePressEvent(QMouseEvent *event) override;
+};
+
 class MainWindowNoTouch : public QWidget {
   Q_OBJECT
 
