@@ -6,6 +6,7 @@
 #include <QtMultimedia>
 #include <QtMultimediaWidgets>
 #include <QVideoWidget>
+#include <QGraphicsVideoItem>
 #include <QDebug>
 
 #include "system/hardware/hw.h"
@@ -23,21 +24,41 @@ MainWindowNoTouch::MainWindowNoTouch(QWidget *parent) : QMainWindow(parent) {
   setpriority(PRIO_PROCESS, 0, -5);
   Hardware::set_brightness(80);
 
+  // testing method with qgraphicsvideoitem
   QMediaPlayer *player = new QMediaPlayer;
+
   QMediaPlaylist *playlist = new QMediaPlaylist(player);
-//  playlist->addMedia(QUrl("https://commadataci.blob.core.windows.net/cesdemo/adeeb-dm-2.mp4"));
   playlist->addMedia(QUrl::fromLocalFile("/home/batman/Downloads/adeeb-dm-2.mp4"));
   playlist->setPlaybackMode(QMediaPlaylist::Loop);
-
-  QVideoWidget *videoWidget = new QVideoWidget(this);
-  player->setVideoOutput(videoWidget);
   player->setPlaylist(playlist);
 
-  videoWidget->show();
-  setCentralWidget(videoWidget);
-//  playlist->setCurrentIndex(1);
-  qDebug() << "Here";
+  QGraphicsScene *scene = new QGraphicsScene(this);
+  QGraphicsView *graphicsView = new QGraphicsView(scene);
+  graphicsView->setRenderHint(QPainter::Antialiasing);
+
+  QGraphicsVideoItem *videoItem = new QGraphicsVideoItem;
+  scene->addItem(videoItem);
+  player->setVideoOutput(videoItem);
+
+  graphicsView->show();
+  setCentralWidget(graphicsView);
   player->play();
+
+
+
+  // WORKS:
+//  QMediaPlayer *player = new QMediaPlayer;
+//  QMediaPlaylist *playlist = new QMediaPlaylist(player);
+//  playlist->addMedia(QUrl::fromLocalFile("/home/batman/Downloads/adeeb-dm-2.mp4"));
+//  playlist->setPlaybackMode(QMediaPlaylist::Loop);
+//
+//  QVideoWidget *videoWidget = new QVideoWidget(this);
+//  player->setVideoOutput(videoWidget);
+//  player->setPlaylist(playlist);
+//
+//  videoWidget->show();
+//  setCentralWidget(videoWidget);
+//  player->play();
 
 //  playlist->addMedia(QUrl("http://example.com/myclip2.mp4"));
 
