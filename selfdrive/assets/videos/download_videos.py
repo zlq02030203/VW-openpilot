@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import sys
 import urllib.request
 import requests
 import os
@@ -14,6 +15,9 @@ print("downloading videos")
 os.makedirs(VIDEOS_PATH, exist_ok=True)
 
 manifest = requests.get(MANIFEST)
+if manifest.status_code != 200:
+  sys.exit(1)
+
 manifest = manifest.content.decode('utf-8').split('\n')
 manifest = [f.replace('out/', '') for f in manifest]
 
