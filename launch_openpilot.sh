@@ -5,6 +5,7 @@ sleep 5
 if [ -z "$BASEDIR" ]; then
   BASEDIR="/data/openpilot"
 fi
+export PYTHONPATH="/data/openpilot"
 
 # launch spinner
 echo "Building" | ./selfdrive/ui/spinner &
