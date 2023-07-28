@@ -57,7 +57,7 @@ MainWindowNoTouch::MainWindowNoTouch(QWidget *parent) : QWidget(parent) {
   QObject::connect(process, &QProcess::started, [=](){
     // transparent touch capture widget
     TransparentWidget *w = new TransparentWidget();
-    w->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+    w->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
     //  w->setStyleSheet("background-color:black;");
     w->setAttribute(Qt::WA_TranslucentBackground);
     w->setGeometry(QRect(QPoint(0, 0), QPoint(2160, 1080)));
