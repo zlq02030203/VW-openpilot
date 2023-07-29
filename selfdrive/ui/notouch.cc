@@ -44,27 +44,27 @@ MainWindowNoTouch::MainWindowNoTouch(QWidget *parent) : QWidget(parent) {
   content_name = VIDEOS_PATH + "/" + content_name;
   qDebug() << "Selected:" << content_name;
 
-//  // play video
-//  QTimer::singleShot(0, [=]() {
-//    std::system(QString("while true; do %1; done").arg(GST_VIDEO_CMD.arg(content_name)).toStdString().c_str());
-//  });
-
-  QString command = "/bin/bash";
-  QStringList args;
-  args << "-c" << "while true; do " + GST_VIDEO_CMD.arg(content_name) + "; done";
-  process->start(command, args);
-
-  QTimer::singleShot(5000, [&]() {
-//  QObject::connect(process, &QProcess::started, [=](){
-    // transparent touch capture widget
-    TransparentWidget *w = new TransparentWidget();
-    w->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
-    //  w->setStyleSheet("background-color:black;");
-    w->setAttribute(Qt::WA_TranslucentBackground);
-    w->setGeometry(QRect(QPoint(0, 0), QPoint(2160, 1080)));
-    w->show();
-    // transparent touch capture widget
+  // play video
+  QTimer::singleShot(0, [=]() {
+    std::system(QString("while true; do %1; done").arg(GST_VIDEO_CMD.arg(content_name)).toStdString().c_str());
   });
+
+//  QString command = "/bin/bash";
+//  QStringList args;
+//  args << "-c" << "while true; do " + GST_VIDEO_CMD.arg(content_name) + "; done";
+//  process->start(command, args);
+
+//  QTimer::singleShot(5000, [&]() {
+////  QObject::connect(process, &QProcess::started, [=](){
+//    // transparent touch capture widget
+//    TransparentWidget *w = new TransparentWidget();
+//    w->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
+//    //  w->setStyleSheet("background-color:black;");
+//    w->setAttribute(Qt::WA_TranslucentBackground);
+//    w->setGeometry(QRect(QPoint(0, 0), QPoint(2160, 1080)));
+//    w->show();
+//    // transparent touch capture widget
+//  });
 
   // no outline to prevent the focus rectangle
   setStyleSheet(R"(
