@@ -12,7 +12,7 @@
 #include "selfdrive/ui/qt/qt_window.h"
 
 const QString VIDEOS_PATH = "../assets/videos/out";
-const QString GST_VIDEO_CMD = QString("gst-launch-1.0 -v multifilesrc location=\"%1\" ! decodebin ! videorate ! queue2 ! video/x-raw,framerate=20/1 ! queue2 ! videoconvert ! queue2 ! videoflip method=clockwise ! queue2 ! autovideosink");
+const QString GST_VIDEO_CMD = QString("gst-launch-1.0 -v multifilesrc location=\"%1\" loop=true ! decodebin ! videorate ! queue2 ! video/x-raw,framerate=20/1 ! queue2 ! videoconvert ! queue2 ! videoflip method=clockwise ! queue2 ! autovideosink");
 //const QString GST_VIDEO_CMD = QString("gst-launch-1.0 filesrc location=\"%1\" ! decodebin ! autovideosink");
 
 void TransparentWidget::mousePressEvent(QMouseEvent *event) {
