@@ -19,8 +19,10 @@ manifest = requests.get(MANIFEST)
 if manifest.status_code != 200:
   sys.exit(1)
 
-manifest = manifest.content.decode('utf-8').split('\n')
-manifest = [f.replace('out/', '') for f in manifest if len(f)]
+manifest = manifest.content.decode('utf-8').splitlines()
+manifest = [f.strip() for f in manifest]
+manifest = [f.replace('out/', '') for f in manifest if
+            len(f) and not f.startswith('#')]
 
 for f in manifest:
   print(f'Downloading {f}')
