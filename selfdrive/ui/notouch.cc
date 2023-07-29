@@ -33,7 +33,7 @@ MainWindowNoTouch::MainWindowNoTouch(QWidget *parent) : QWidget(parent) {
   process = new QProcess(this);
 
   QStringList filters;
-  filters << "*.mp4" << "*.mkv";
+  filters << "*.mp4" << "*.mkv" << "*.hevc";
   QDir videos_path = QDir(VIDEOS_PATH);
   videos_path.setNameFilters(filters);
   QString content_name;
