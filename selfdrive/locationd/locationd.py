@@ -90,7 +90,7 @@ class LocationEstimator:
       self.reset(t)
 
   def handle_log(self, t: float, which: str, msg: capnp._DynamicStructReader) -> HandleLogResult:
-    new_x, new_P = None, None
+    kf_result = None
     if which == "accelerometer" and msg.which() == "acceleration":
       sensor_time = msg.timestamp * 1e-9
 
@@ -105,10 +105,9 @@ class LocationEstimator:
       if np.linalg.norm(meas) >= ACCEL_SANITY_CHECK:
         return HandleLogResult.INPUT_INVALID
 
-      acc_res = self.kf.predict_and_observe(sensor_time, ObservationKind.PHONE_ACCEL, meas)
-      if acc_res is not None:
-        _, new_x, _, new_P, _, _, (acc_err,), _, _ = acc_res
-        self.observation_errors[ObservationKind.PHONE_ACCEL] = np.array(acc_err)
+      kf_result = self.kf.predict_and_observe(sensor_time, ObservationKind.PHONE_ACCEL, meas)
+      if kf_result is not None:
+        self.observation_errors[ObservationKind.PHONE_ACCEL] = np.array(kf_result.y)
         self.observations[ObservationKind.PHONE_ACCEL] = meas
 
     elif which == "gyroscope" and msg.which() == "gyroUncalibrated":
@@ -131,10 +130,9 @@ class LocationEstimator:
       if np.linalg.norm(meas) >= ROTATION_SANITY_CHECK or not gyro_valid:
         return HandleLogResult.INPUT_INVALID
 
-      gyro_res = self.kf.predict_and_observe(sensor_time, ObservationKind.PHONE_GYRO, meas)
-      if gyro_res is not None:
-        _, new_x, _, new_P, _, _, (gyro_err,), _, _ = gyro_res
-        self.observation_errors[ObservationKind.PHONE_GYRO] = np.array(gyro_err)
+      kf_result = self.kf.predict_and_observe(sensor_time, ObservationKind.PHONE_GYRO, meas)
+      if kf_result is not None:
+        self.observation_errors[ObservationKind.PHONE_GYRO] = np.array(kf_result.y)
         self.observations[ObservationKind.PHONE_GYRO] = meas
 
     elif which == "carState":
@@ -180,20 +178,18 @@ class LocationEstimator:
       rot_device_noise = rot_device_std ** 2
       trans_device_noise = trans_device_std ** 2
 
-      cam_odo_rot_res = self.kf.predict_and_observe(t, ObservationKind.CAMERA_ODO_ROTATION, rot_device, rot_device_noise)
-      cam_odo_trans_res = self.kf.predict_and_observe(t, ObservationKind.CAMERA_ODO_TRANSLATION, trans_device, trans_device_noise)
-      self.camodo_yawrate_distribution =  np.array([rot_device[2], rot_device_std[2]])
-      if cam_odo_rot_res is not None:
-        _, new_x, _, new_P, _, _, (cam_odo_rot_err,), _, _ = cam_odo_rot_res
-        self.observation_errors[ObservationKind.CAMERA_ODO_ROTATION] = np.array(cam_odo_rot_err)
+      kf_result = self.kf.predict_and_observe(t, ObservationKind.CAMERA_ODO_ROTATION, rot_device, rot_device_noise)
+      if kf_result is not None:
+        self.observation_errors[ObservationKind.CAMERA_ODO_ROTATION] = np.array(kf_result.y)
         self.observations[ObservationKind.CAMERA_ODO_ROTATION] = rot_device
-      if cam_odo_trans_res is not None:
-        _, new_x, _, new_P, _, _, (cam_odo_trans_err,), _, _ = cam_odo_trans_res
-        self.observation_errors[ObservationKind.CAMERA_ODO_TRANSLATION] = np.array(cam_odo_trans_err)
+      kf_result = self.kf.predict_and_observe(t, ObservationKind.CAMERA_ODO_TRANSLATION, trans_device, trans_device_noise)
+      if kf_result is not None:
+        self.observation_errors[ObservationKind.CAMERA_ODO_TRANSLATION] = np.array(kf_result.y)
         self.observations[ObservationKind.CAMERA_ODO_TRANSLATION] = trans_device
+      self.camodo_yawrate_distribution =  np.array([rot_device[2], rot_device_std[2]])
 
-    if new_x is not None and new_P is not None:
-      self._finite_check(t, new_x, new_P)
+    if kf_result is not None:
+      self._finite_check(t, kf_result.xk, kf_result.Pk)
     return HandleLogResult.SUCCESS
 
   def get_msg(self, sensors_valid: bool, inputs_valid: bool, filter_valid: bool):
