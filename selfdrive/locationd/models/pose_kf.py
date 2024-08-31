@@ -10,7 +10,7 @@ if __name__=="__main__":
   from rednose.helpers.ekf_sym import gen_code
   from rednose.helpers.sympy_helpers import euler_rotate, rot_to_euler
 else:
-  from rednose.helpers.ekf_sym_pyx import EKF_sym_pyx
+  from rednose.helpers.ekf_sym import EKF_sym
 
 EARTH_G = 9.81
 
@@ -100,7 +100,7 @@ class PoseKalman:
 
   def __init__(self, generated_dir, max_rewind_age):
     dim_state, dim_state_err = PoseKalman.initial_x.shape[0], PoseKalman.initial_P.shape[0]
-    self.filter = EKF_sym_pyx(generated_dir, self.name, PoseKalman.Q, PoseKalman.initial_x, PoseKalman.initial_P,
+    self.filter = EKF_sym(generated_dir, self.name, PoseKalman.Q, PoseKalman.initial_x, PoseKalman.initial_P,
                               dim_state, dim_state_err, max_rewind_age=max_rewind_age)
 
   @property
@@ -115,12 +115,12 @@ class PoseKalman:
   def t(self):
     return self.filter.get_filter_time()
 
-  def predict_and_observe(self, t, kind, data, obs_noise=None):
+  def predict_and_observe(self, t, kind, data, xk_km1=None, Pk_km1=None, xk_k=None, Pk_k=None, y=None, obs_noise=None):
     data = np.atleast_2d(data)
     if obs_noise is None:
       obs_noise = self.obs_noise[kind]
     R = self._get_R(len(data), obs_noise)
-    return self.filter.predict_and_update_batch(t, kind, data, R)
+    return self.filter.predict_and_update_batch(t, kind, data, R, xk_km1, Pk_km1, xk_k, Pk_k, y)
 
   def reset(self, t, x_init, P_init):
     self.filter.init_state(x_init, P_init, t)
