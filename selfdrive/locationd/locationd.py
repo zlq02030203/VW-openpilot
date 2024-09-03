@@ -239,7 +239,7 @@ def main():
   DEBUG = bool(int(os.getenv("DEBUG", "0")))
 
   pm = messaging.PubMaster(['livePose'])
-  sm = messaging.SubMaster(['accelerometer', 'gyroscope', 'carState', 'liveCalibration', 'cameraOdometry'])
+  sm = messaging.SubMaster(['accelerometer', 'gyroscope', 'carState', 'liveCalibration', 'cameraOdometry'], frequency=50)
 
   params = Params()
 
@@ -264,6 +264,7 @@ def main():
 
     if filter_initialized:
       observation_timing_invalid = False
+      # print("msgs", [which for which in sm.updated.keys() if sm.updated[which]])
       for which in sm.updated.keys():
         if sm.updated[which] and sm.valid[which]:
           t = sm.logMonoTime[which] * 1e-9
@@ -284,7 +285,7 @@ def main():
 
       msg = estimator.get_msg(sensors_valid, inputs_valid, filter_initialized)
       pm.send("livePose", msg)
-    rk.keep_time()
+    # rk.keep_time()
 
 
 if __name__ == "__main__":
