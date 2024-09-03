@@ -8,7 +8,7 @@ from collections import defaultdict
 
 from cereal import log, messaging
 from openpilot.common.transformations.orientation import rot_from_euler
-from openpilot.common.realtime import config_realtime_process
+from openpilot.common.realtime import config_realtime_process, Ratekeeper
 from openpilot.common.params import Params
 from openpilot.selfdrive.locationd.helpers import rotate_std
 from openpilot.selfdrive.locationd.models.pose_kf import PoseKalman, States
@@ -250,6 +250,8 @@ def main():
   observation_timing_invalid = False
   observation_input_invalid = defaultdict(int)
 
+  rk = Ratekeeper(100, print_delay_threshold=None)
+
   initial_pose = params.get("LocationFilterInitialState")
   if initial_pose is not None:
     initial_pose = json.loads(initial_pose)
@@ -282,6 +284,7 @@ def main():
 
       msg = estimator.get_msg(sensors_valid, inputs_valid, filter_initialized)
       pm.send("livePose", msg)
+    rk.keep_time()
 
 
 if __name__ == "__main__":
