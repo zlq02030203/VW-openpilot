@@ -98,17 +98,23 @@ class ModelState:
     self.inputs['traffic_convention'][:] = inputs['traffic_convention']
     self.inputs['lateral_control_params'][:] = inputs['lateral_control_params']
 
+    pt1 = time.perf_counter()
     new_img = self.frame.prepare(buf, transform.flatten(), self.model.getCLBuffer("input_imgs"))
     self.model.setInputBuffer("input_imgs", new_img)
     if wbuf is not None:
       new_big_img = self.wide_frame.prepare(wbuf, transform_wide.flatten(), self.model.getCLBuffer("big_input_imgs"))
       self.model.setInputBuffer("big_input_imgs", new_big_img)
-
+    pt2 = time.perf_counter()
 
     if prepare_only:
       return None
 
+    gt1 = time.perf_counter()
     self.model.execute()
+    gt2 = time.perf_counter()
+    gput = gt2 - gt1
+    pret = pt2 - pt1
+    print("prep time", pret * 1000, "gpu time", gput * 1000)
     outputs = self.parser.parse_outputs(self.slice_outputs(self.output))
 
     self.inputs['features_buffer'][:-ModelConstants.FEATURE_LEN] = self.inputs['features_buffer'][ModelConstants.FEATURE_LEN:]
