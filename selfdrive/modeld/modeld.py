@@ -99,10 +99,10 @@ class ModelState:
     self.inputs['lateral_control_params'][:] = inputs['lateral_control_params']
 
     new_img = self.frame.prepare(buf, transform.flatten(), self.model.getCLBuffer("input_imgs"))
-    self.model.setInputBuffer("input_imgs", new_img)
+    self.model.setInputBuffer("input_imgs", new_img.astype(np.float32))
     if wbuf is not None:
       new_big_img = self.wide_frame.prepare(wbuf, transform_wide.flatten(), self.model.getCLBuffer("big_input_imgs"))
-      self.model.setInputBuffer("big_input_imgs", new_big_img)
+      self.model.setInputBuffer("big_input_imgs", new_big_img.astype(np.float32))
 
 
     if prepare_only:
