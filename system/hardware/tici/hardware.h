@@ -25,7 +25,11 @@ public:
   }
 
   static cereal::InitData::DeviceType get_device_type() {
-    return (get_name() == "tizi") ? cereal::InitData::DeviceType::TIZI : (get_name() == "mici" ? cereal::InitData::DeviceType::MICI : cereal::InitData::DeviceType::TICI);
+    std::string name = get_name();
+    if (name == "tizi") return cereal::InitData::DeviceType::TIZI;
+    if (name == "tiki") return cereal::InitData::DeviceType::TIKI;
+    if (name == "mici") return cereal::InitData::DeviceType::MICI;
+    return cereal::InitData::DeviceType::TICI;
   }
 
   static int get_voltage() { return std::atoi(util::read_file("/sys/class/hwmon/hwmon1/in1_input").c_str()); }

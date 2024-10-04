@@ -171,6 +171,7 @@ struct InitData {
     pc @5;
     tizi @6;
     mici @7;
+    tiki @8;
   }
 
   struct PandaInfo {

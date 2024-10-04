@@ -98,6 +98,8 @@ CONFIGS = {
     AmpConfig("Volume adjustment smoothing disabled", 0b1, 0x49, 6, 0b01000000),
   ],
 }
+CONFIGS["tiki"] = CONFIGS["tizi"]
+
 
 class Amplifier:
   AMP_I2C_BUS = 0
