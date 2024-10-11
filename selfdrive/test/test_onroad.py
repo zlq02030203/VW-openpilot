@@ -76,7 +76,12 @@ PROCS.update({
   "tizi": {
      "./pandad": 19.0,
     "system.qcomgpsd.qcomgpsd": 1.0,
-  }
+  },
+  "tiki": {
+    "./pandad": 4.0,
+    "./ubloxd": 0.02,
+    "system.ubloxd.pigeond": 6.0,
+  },
 }.get(HARDWARE.get_device_type(), {}))
 
 TIMINGS = {
