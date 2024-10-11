@@ -16,6 +16,7 @@ from openpilot.common.gpio import gpio_init, gpio_set
 from openpilot.system.hardware.tici.pins import GPIO
 
 UBLOX_TTY = "/dev/ttyHS0"
+UBLOX_BAUD_RATE = 230400 # enough to keep up with ublox messages
 
 UBLOX_ACK = b"\xb5\x62\x05\x01\x02\x00"
 UBLOX_NACK = b"\xb5\x62\x05\x00\x02\x00"
@@ -39,6 +40,15 @@ def add_ubx_checksum(msg: bytes) -> bytes:
     A = (A + b) % 256
     B = (B + A) % 256
   return msg + bytes([A, B])
+
+def add_nmea_checksum(sentence: str) -> str:
+  sentence = sentence.strip('$\n').split('*')[0]
+
+  checksum = 0
+  for char in sentence:
+    checksum ^= ord(char)
+
+  return f"${sentence}*{checksum:02X}"
 
 def get_assistnow_messages(token: bytes) -> list[bytes]:
   # make request
@@ -139,10 +149,9 @@ def init_baudrate(pigeon: TTYPigeon):
   # ublox default setting on startup is 9600 baudrate
   pigeon.set_baud(9600)
 
-  # $PUBX,41,1,0007,0003,460800,0*15\r\n
-  pigeon.send(b"\x24\x50\x55\x42\x58\x2C\x34\x31\x2C\x31\x2C\x30\x30\x30\x37\x2C\x30\x30\x30\x33\x2C\x34\x36\x30\x38\x30\x30\x2C\x30\x2A\x31\x35\x0D\x0A")
+  pigeon.send(bytes(add_nmea_checksum(f"$PUBX,41,1,0007,0003,{UBLOX_BAUD_RATE},0") + "\r\n", "utf-8"))
   time.sleep(0.1)
-  pigeon.set_baud(460800)
+  pigeon.set_baud(UBLOX_BAUD_RATE)
 
 
 def initialize_pigeon(pigeon: TTYPigeon) -> bool:
@@ -151,10 +160,11 @@ def initialize_pigeon(pigeon: TTYPigeon) -> bool:
     try:
 
       # setup port config
-      pigeon.send_with_ack(b"\xb5\x62\x06\x00\x14\x00\x03\xFF\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x01\x00\x00\x00\x00\x00\x1E\x7F")
-      pigeon.send_with_ack(b"\xb5\x62\x06\x00\x14\x00\x00\xFF\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x19\x35")
-      pigeon.send_with_ack(b"\xb5\x62\x06\x00\x14\x00\x01\x00\x00\x00\xC0\x08\x00\x00\x00\x08\x07\x00\x01\x00\x01\x00\x00\x00\x00\x00\xF4\x80")
-      pigeon.send_with_ack(b"\xb5\x62\x06\x00\x14\x00\x04\xFF\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x1D\x85")
+      pigeon.send_with_ack(add_ubx_checksum(b"\xb5\x62\x06\x00\x14\x00\x03\xFF\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x01\x00\x00\x00\x00\x00"))
+      pigeon.send_with_ack(add_ubx_checksum(b"\xb5\x62\x06\x00\x14\x00\x00\xFF\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"))
+      # pigeon.send_with_ack(add_ubx_checksum(b"\xb5\x62\x06\x00\x14\x00\x01\x00\x00\x00\xC0\x08\x00\x00\x00\x4B\x00\x00\x01\x00\x01\x00\x00\x00\x00\x00")) # sets the baudrate again
+      pigeon.send_with_ack(add_ubx_checksum(b"\xb5\x62\x06\x00\x14\x00\x04\xFF\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"))
+
       pigeon.send_with_ack(b"\xb5\x62\x06\x00\x00\x00\x06\x18")
       pigeon.send_with_ack(b"\xb5\x62\x06\x00\x01\x00\x01\x08\x22")
       pigeon.send_with_ack(b"\xb5\x62\x06\x00\x01\x00\x03\x0A\x24")
@@ -233,12 +243,12 @@ def initialize_pigeon(pigeon: TTYPigeon) -> bool:
     except TimeoutError:
       cloudlog.warning("Initialization failed, trying again!")
   else:
-    cloudlog.warning("Failed to initialize pigeon")
-    return False
+    cloudlog.error("Failed to initialize pigeon")
+    return FalseUBLOX_TTY
   return True
 
 def deinitialize_and_exit(pigeon: TTYPigeon | None):
-  cloudlog.warning("Storing almanac in ublox flash")
+  cloudlog.info("Storing almanac in ublox flash")
 
   if pigeon is not None:
     # controlled GNSS stop
@@ -248,7 +258,7 @@ def deinitialize_and_exit(pigeon: TTYPigeon | None):
     pigeon.send(b"\xB5\x62\x09\x14\x04\x00\x00\x00\x00\x00\x21\xEC")
     try:
       if pigeon.wait_for_ack(ack=UBLOX_SOS_ACK, nack=UBLOX_SOS_NACK):
-        cloudlog.warning("Done storing almanac")
+        cloudlog.info("Done storing almanac")
       else:
         cloudlog.error("Error storing almanac")
     except TimeoutError:
