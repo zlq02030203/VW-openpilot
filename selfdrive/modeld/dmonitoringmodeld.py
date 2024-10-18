@@ -72,7 +72,7 @@ class ModelState:
     self.output = np.zeros(OUTPUT_SIZE, dtype=np.float32)
     self.inputs = {
       'input_img': np.zeros(MODEL_HEIGHT * MODEL_WIDTH, dtype=np.uint8),
-      'features': np.zeros(CONTEXT_LEN * FEATURE_LEN, dtype=np.float32),
+      'features': np.zeros((CONTEXT_LEN-1) * FEATURE_LEN, dtype=np.float32),
       'awareness': np.zeros(1, dtype=np.float32),
       'enabled': np.zeros(1, dtype=np.float32),
       'steering_pressed': np.zeros(1, dtype=np.float32),
@@ -110,7 +110,7 @@ class ModelState:
     self.inputs['features'][-FEATURE_LEN:] = model_result.feature
 
     if history_valid:
-      self.inputs['awareness'][:] = model_result.awareness[0]
+      self.inputs['awareness'][:] = min(max(model_result.awareness[0], -0.1), 1.0)
 
     return model_result, t2 - t1
 
@@ -144,7 +144,7 @@ def fill_monitoringstate_packet(model_result, msg):
   ms = msg.driverMonitoringState
   ms.awarenessStatus = model_result.awareness[0]
   ms.isActiveMode = bool(sigmoid(model_result.active_mode_prob) > 0.5)
-  ms.isRHD = bool(sigmoid(model_result.rhd_prob) > 0.1)
+  ms.isRHD = bool(sigmoid(model_result.rhd_prob) > 0.5)
 
   evts = Events()
   if sigmoid(model_result.alerts_prob[0]) > 0.2:
