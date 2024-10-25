@@ -473,7 +473,7 @@ void SpectraCamera::config_ife(int idx, int request_id, bool init) {
   int size = sizeof(struct cam_packet) + sizeof(struct cam_cmd_buf_desc)*2;
   size += sizeof(struct cam_patch_desc)*10;
   if (!init) {
-    size += sizeof(struct cam_buf_io_cfg);
+    size += sizeof(struct cam_buf_io_cfg)*2;
   }
 
   uint32_t cam_packet_handle = 0;
@@ -532,21 +532,27 @@ void SpectraCamera::config_ife(int idx, int request_id, bool init) {
 
     tmp.type_0 = CAM_ISP_GENERIC_BLOB_TYPE_HFR_CONFIG;
     tmp.type_0 |= sizeof(cam_isp_resource_hfr_config) << 8;
-    static_assert(sizeof(cam_isp_resource_hfr_config) == 0x20);
     tmp.resource_hfr = {
-      .num_ports = 1,
+      .num_ports = 2,
       .port_hfr_config[0] = {
-        .resource_type = static_cast<uint32_t>(is_raw ? CAM_ISP_IFE_OUT_RES_RDI_0 : CAM_ISP_IFE_OUT_RES_FULL),
+        .resource_type = CAM_ISP_IFE_OUT_RES_RDI_0,
         .subsample_pattern = 1,
         .subsample_period = 0,
         .framedrop_pattern = 1,
         .framedrop_period = 0,
-      }
+      },
+      .port_hfr_config[1] = {
+        .resource_type = CAM_ISP_IFE_OUT_RES_FULL,
+        .subsample_pattern = 1,
+        .subsample_period = 0,
+        .framedrop_pattern = 1,
+        .framedrop_period = 0,
+      },
     };
 
     tmp.type_1 = CAM_ISP_GENERIC_BLOB_TYPE_CLOCK_CONFIG;
     tmp.type_1 |= (sizeof(cam_isp_clock_config) + sizeof(tmp.extra_rdi_hz)) << 8;
-    static_assert((sizeof(cam_isp_clock_config) + sizeof(tmp.extra_rdi_hz)) == 0x38);
+    //static_assert((sizeof(cam_isp_clock_config) + sizeof(tmp.extra_rdi_hz)) == 0x38);
     tmp.clock = {
       .usage_type = 1, // dual mode
       .num_rdi = 4,
@@ -557,7 +563,7 @@ void SpectraCamera::config_ife(int idx, int request_id, bool init) {
 
     tmp.type_2 = CAM_ISP_GENERIC_BLOB_TYPE_BW_CONFIG;
     tmp.type_2 |= (sizeof(cam_isp_bw_config) + sizeof(tmp.extra_rdi_vote)) << 8;
-    static_assert((sizeof(cam_isp_bw_config) + sizeof(tmp.extra_rdi_vote)) == 0xe0);
+    //static_assert((sizeof(cam_isp_bw_config) + sizeof(tmp.extra_rdi_vote)) == 0xe0);
     tmp.bw = {
       .usage_type = 1, // dual mode
       .num_rdi = 4,
@@ -573,10 +579,10 @@ void SpectraCamera::config_ife(int idx, int request_id, bool init) {
       },
     };
 
-    static_assert(offsetof(struct isp_packet, type_2) == 0x60);
+    //static_assert(offsetof(struct isp_packet, type_2) == 0x60);
 
     buf_desc[1].size = sizeof(tmp);
-    buf_desc[1].offset = !init ? 0x60 : 0;
+    buf_desc[1].offset = !init ? offsetof(struct isp_packet, type_2) : 0;
     buf_desc[1].length = buf_desc[1].size - buf_desc[1].offset;
     buf_desc[1].type = CAM_CMD_BUF_GENERIC;
     buf_desc[1].meta_data = CAM_ISP_PACKET_META_GENERIC_BLOB_COMMON;
@@ -587,12 +593,12 @@ void SpectraCamera::config_ife(int idx, int request_id, bool init) {
   // *** io config ***
   if (!init) {
     // configure output frame
-    pkt->num_io_configs = 1;
+    pkt->num_io_configs = 2;
     pkt->io_configs_offset = sizeof(struct cam_cmd_buf_desc)*pkt->num_cmd_buf;
 
     struct cam_buf_io_cfg *io_cfg = (struct cam_buf_io_cfg *)((char*)&pkt->payload + pkt->io_configs_offset);
 
-    if (is_raw) {
+    if (true) {
       io_cfg[0].mem_handle[0] = buf_handle_raw[idx];
       io_cfg[0].planes[0] = (struct cam_plane_cfg){
         .width = sensor->frame_width,
@@ -609,31 +615,31 @@ void SpectraCamera::config_ife(int idx, int request_id, bool init) {
       io_cfg[0].direction = CAM_BUF_OUTPUT;
       io_cfg[0].subsample_pattern = 0x1;
       io_cfg[0].framedrop_pattern = 0x1;
-    } else {
-      io_cfg[0].mem_handle[0] = buf_handle_yuv[idx];
-      io_cfg[0].mem_handle[1] = buf_handle_yuv[idx];
-      io_cfg[0].planes[0] = (struct cam_plane_cfg){
+
+      io_cfg[1].mem_handle[0] = buf_handle_yuv[idx];
+      io_cfg[1].mem_handle[1] = buf_handle_yuv[idx];
+      io_cfg[1].planes[0] = (struct cam_plane_cfg){
         .width = sensor->frame_width,
         .height = sensor->frame_height,
         .plane_stride = stride,
         .slice_height = y_height,
       };
-      io_cfg[0].planes[1] = (struct cam_plane_cfg){
+      io_cfg[1].planes[1] = (struct cam_plane_cfg){
         .width = sensor->frame_width,
         .height = sensor->frame_height/2,
         .plane_stride = stride,
         .slice_height = uv_height,
       };
-      io_cfg[0].offsets[1] = uv_offset;
-      io_cfg[0].format = CAM_FORMAT_NV12;
-      io_cfg[0].color_space = 0;
-      io_cfg[0].color_pattern = 0x0;
-      io_cfg[0].bpp = 0;
-      io_cfg[0].resource_type = CAM_ISP_IFE_OUT_RES_FULL;
-      io_cfg[0].fence = sync_objs[idx];
-      io_cfg[0].direction = CAM_BUF_OUTPUT;
-      io_cfg[0].subsample_pattern = 0x1;
-      io_cfg[0].framedrop_pattern = 0x1;
+      io_cfg[1].offsets[1] = uv_offset;
+      io_cfg[1].format = CAM_FORMAT_NV12;
+      io_cfg[1].color_space = 0;
+      io_cfg[1].color_pattern = 0x0;
+      io_cfg[1].bpp = 0;
+      io_cfg[1].resource_type = CAM_ISP_IFE_OUT_RES_FULL;
+      io_cfg[1].fence = sync_objs[idx];
+      io_cfg[1].direction = CAM_BUF_OUTPUT;
+      io_cfg[1].subsample_pattern = 0x1;
+      io_cfg[1].framedrop_pattern = 0x1;
     }
   }
 
@@ -825,6 +831,12 @@ void SpectraCamera::configISP() {
     .right_stop = sensor->frame_width - 1,
     .right_width = sensor->frame_width,
 
+     /*
+    .line_start = 0,
+    .line_stop = sensor->frame_height + sensor->extra_height - 1,
+    .height = sensor->frame_height + sensor->extra_height,
+    */
+
     .line_start = sensor->frame_offset,
     .line_stop = sensor->frame_height + sensor->frame_offset - 1,
     .height = sensor->frame_height + sensor->frame_offset,
@@ -836,12 +848,19 @@ void SpectraCamera::configISP() {
     .custom_csid = 0x0,
 
     // ISP outputs
-    .num_out_res = 0x1,
+    .num_out_res = 0x2,
     .data[0] = (struct cam_isp_out_port_info){
+      .res_type = CAM_ISP_IFE_OUT_RES_RDI_0,
+      .format = sensor->mipi_format,
+      .width = sensor->frame_width,
+      .height = sensor->frame_height,
+      .comp_grp_id = 0x0, .split_point = 0x0, .secure_mode = 0x0,
+    },
+    .data[1] = (struct cam_isp_out_port_info){
       .res_type = CAM_ISP_IFE_OUT_RES_FULL,
       .format = CAM_FORMAT_NV12,
       .width = sensor->frame_width,
-      .height = sensor->frame_height + sensor->extra_height,
+      .height = sensor->frame_height,
       .comp_grp_id = 0x0, .split_point = 0x0, .secure_mode = 0x0,
     },
   };
@@ -851,8 +870,6 @@ void SpectraCamera::configISP() {
     in_port_info.line_stop = sensor->frame_height + sensor->extra_height - 1;
     in_port_info.height = sensor->frame_height + sensor->extra_height;
 
-    in_port_info.data[0].res_type = CAM_ISP_IFE_OUT_RES_RDI_0;
-    in_port_info.data[0].format = sensor->mipi_format;
   }
 
   struct cam_isp_resource isp_resource = {

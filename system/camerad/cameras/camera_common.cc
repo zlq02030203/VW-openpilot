@@ -20,7 +20,7 @@ public:
              "-DFRAME_WIDTH=%d -DFRAME_HEIGHT=%d -DFRAME_STRIDE=%d -DFRAME_OFFSET=%d "
              "-DRGB_WIDTH=%d -DRGB_HEIGHT=%d -DYUV_STRIDE=%d -DUV_OFFSET=%d "
              "-DSENSOR_ID=%hu -DHDR_OFFSET=%d -DVIGNETTING=%d ",
-             sensor->frame_width, sensor->frame_height, sensor->hdr_offset > 0 ? sensor->frame_stride * 2 : sensor->frame_stride, sensor->frame_offset,
+             sensor->frame_width, sensor->frame_height, sensor->hdr_offset > 0 ? sensor->frame_stride * 2 : sensor->frame_stride, 0,
              b->out_img_width, b->out_img_height, buf_width, uv_offset,
              static_cast<unsigned short>(sensor->image_sensor), sensor->hdr_offset, camera_num == 1);
     const char *cl_file = "cameras/process_raw.cl";
@@ -84,6 +84,7 @@ void CameraBuf::init(cl_device_id device_id, cl_context context, SpectraCamera *
   size_t nv12_size = (out_img_width <= 1344 ? 2900 : 2346)*cam->stride;
 
   vipc_server->create_buffers_with_sizes(stream_type, YUV_BUFFER_COUNT, out_img_width, out_img_height, nv12_size, cam->stride, cam->uv_offset);
+  if (stream_type == VISION_STREAM_WIDE_ROAD) vipc_server->create_buffers_with_sizes(VISION_STREAM_DRIVER, YUV_BUFFER_COUNT, out_img_width, out_img_height, nv12_size, cam->stride, cam->uv_offset);
   LOGD("created %d YUV vipc buffers with size %dx%d", YUV_BUFFER_COUNT, cam->stride, cam->y_height);
 
   imgproc = new ImgProc(device_id, context, this, sensor, cam->cc.camera_num, cam->stride, cam->uv_offset);
@@ -104,18 +105,21 @@ bool CameraBuf::acquire(int expo_time) {
     return false;
   }
 
+  if (stream_type != VISION_STREAM_WIDE_ROAD) {
+    return false;
+  }
+
   cur_frame_data = frame_metadata[cur_buf_idx];
   cur_camera_buf = &camera_bufs_raw[cur_buf_idx];
-  if (is_raw) {
-    cur_yuv_buf = vipc_server->get_buffer(stream_type);
 
-    double start_time = millis_since_boot();
-    imgproc->runKernel(camera_bufs_raw[cur_buf_idx].buf_cl, cur_yuv_buf->buf_cl, out_img_width, out_img_height, expo_time);
-    cur_frame_data.processing_time = (millis_since_boot() - start_time) / 1000.0;
-  } else {
-    cur_yuv_buf = vipc_server->get_buffer(stream_type, cur_buf_idx);
-    cur_frame_data.processing_time = (double)(cur_frame_data.timestamp_end_of_isp - cur_frame_data.timestamp_eof)*1e-6;
-  }
+  cur_yuv_buf_cl = vipc_server->get_buffer(VISION_STREAM_DRIVER, cur_buf_idx);
+
+  double start_time = millis_since_boot();
+  imgproc->runKernel(camera_bufs_raw[cur_buf_idx].buf_cl, cur_yuv_buf_cl->buf_cl, out_img_width, out_img_height, expo_time);
+  cur_frame_data.processing_time = (millis_since_boot() - start_time) / 1000.0;
+
+  cur_yuv_buf = vipc_server->get_buffer(stream_type, cur_buf_idx);
+  cur_frame_data.processing_time = (double)(cur_frame_data.timestamp_end_of_isp - cur_frame_data.timestamp_eof)*1e-6;
 
   VisionIpcBufExtra extra = {
     cur_frame_data.frame_id,
@@ -123,7 +127,9 @@ bool CameraBuf::acquire(int expo_time) {
     cur_frame_data.timestamp_eof,
   };
   cur_yuv_buf->set_frame_id(cur_frame_data.frame_id);
+  cur_yuv_buf_cl->set_frame_id(cur_frame_data.frame_id);
   vipc_server->send(cur_yuv_buf, &extra);
+  vipc_server->send(cur_yuv_buf_cl, &extra);
 
   return true;
 }
