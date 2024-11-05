@@ -17,10 +17,10 @@ int build_update(uint8_t *dst, const SensorInfo *s, std::vector<uint32_t> &patch
 
   dst += write_cont(dst, 0x560, {
     0x00000001,
-    0x04440444,
-    0x04450445,
-    0x04440444,
-    0x04450445,
+    0x04000400,
+    0x04000400,
+    0x04000400,
+    0x04000400,
     0x000000ca,
     0x0000009c,
   });
@@ -144,7 +144,7 @@ int build_initial_config(uint8_t *dst, const SensorInfo *s, std::vector<uint32_t
 
   // debayer
   dst += write_cont(dst, 0x6f8, {
-    0x00000100,
+    0x00000000,
   });
   dst += write_cont(dst, 0x71c, {
     0x00008000,
