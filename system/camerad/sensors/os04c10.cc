@@ -43,11 +43,11 @@ OS04C10::OS04C10() {
   frame_data_type = 0x2c;
   mclk_frequency = 24000000; // Hz
 
-  dc_gain_factor = 1;
-  dc_gain_min_weight = 1;  // always on is fine
+  dc_gain_factor = 3.75;
+  dc_gain_min_weight = 0;
   dc_gain_max_weight = 1;
-  dc_gain_on_grey = 0.9;
-  dc_gain_off_grey = 1.0;
+  dc_gain_on_grey = 0.225;
+  dc_gain_off_grey = 0.275;
   exposure_time_min = 2;
   exposure_time_max = 2352;
   analog_gain_min_idx = 0x0;
@@ -99,6 +99,7 @@ std::vector<i2c_random_wr_payload> OS04C10::getExposureRegisters(int exposure_ti
   uint32_t real_gain = os04c10_analog_gains_reg[new_exp_g];
 
   return {
+    {0x3880, dc_gain_enabled ? 0x25 : 0x00},
     {0x3501, long_time>>8}, {0x3502, long_time&0xFF},
     {0x3508, real_gain>>8}, {0x3509, real_gain&0xFF},
     {0x350c, real_gain>>8}, {0x350d, real_gain&0xFF},
