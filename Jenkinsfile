@@ -218,12 +218,14 @@ node {
           step("test pandad loopback", "pytest selfdrive/pandad/tests/test_pandad_loopback.py"),
         ])
       },
-      'camerad': {
+      'camerad-AR0231': {
         deviceStage("AR0231", "tici-ar0231", ["UNSAFE=1"], [
           step("build", "cd system/manager && ./build.py"),
           step("test camerad", "pytest system/camerad/test/test_camerad.py", [timeout: 60]),
           step("test exposure", "pytest system/camerad/test/test_exposure.py"),
         ])
+      },
+      'camerad-OX03C10': {
         deviceStage("OX03C10", "tici-ox03c10", ["UNSAFE=1"], [
           step("build", "cd system/manager && ./build.py"),
           step("test camerad", "pytest system/camerad/test/test_camerad.py", [timeout: 60]),
@@ -231,14 +233,20 @@ node {
         ])
       },
       'sensord': {
-        deviceStage("LSM + MMC", "tici-lsmc", ["UNSAFE=1"], [
-          step("build", "cd system/manager && ./build.py"),
-          step("test sensord", "pytest system/sensord/tests/test_sensord.py"),
-        ])
-        deviceStage("BMX + LSM", "tici-bmx-lsm", ["UNSAFE=1"], [
-          step("build", "cd system/manager && ./build.py"),
-          step("test sensord", "pytest system/sensord/tests/test_sensord.py"),
-        ])
+        parallel (
+          'LSM + MMC': {
+            deviceStage("LSM + MMC", "tici-lsmc", ["UNSAFE=1"], [
+              step("build", "cd system/manager && ./build.py"),
+              step("test sensord", "pytest system/sensord/tests/test_sensord.py"),
+            ])
+          },
+          'BMX + LSM': {
+            deviceStage("BMX + LSM", "tici-bmx-lsm", ["UNSAFE=1"], [
+              step("build", "cd system/manager && ./build.py"),
+              step("test sensord", "pytest system/sensord/tests/test_sensord.py"),
+            ])
+          },
+        )
       },
       'replay': {
         deviceStage("model-replay", "tici-replay", ["UNSAFE=1"], [
