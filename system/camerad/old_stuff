@@ -1,0 +1,1044 @@
+common/clutil.cc: platform[0] CL_PLATFORM_NAME: QUALCOMM Snapdragon(TM)
+open: /dev/kgsl-3d0 -> 9
+open: /dev/ion -> 10
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0100940 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0100941 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0180902 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0180902 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0180902 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0180902 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0180902 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0180902 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0180902 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0180902 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0180902 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0180902 = 0
+common/clutil.cc: vendor: QUALCOMM
+common/clutil.cc: platform version: OpenCL 2.0 QUALCOMM build: commit #f437276 changeid # Date: 12/06/18 Thu Local Branch:  Remote Branch: 
+common/clutil.cc: profile: FULL_PROFILE
+common/clutil.cc: extensions:  
+common/clutil.cc: name: QUALCOMM Adreno(TM)
+common/clutil.cc: device version: OpenCL 2.0 Adreno(TM) 630
+common/clutil.cc: max work group size: 1024
+common/clutil.cc: type = 4, CL_DEVICE_TYPE_GPU
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0180902 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0180902 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0180902 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0180902 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0180902 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0180902 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0180902 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0180902 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0180902 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0180902 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300945 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300945 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0080913 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40180932 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300945 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300945 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300945 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300945 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300945 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300945 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300945 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300945 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300945 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300945 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300945 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0100940 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0180942 = 0
+open: /dev/urandom -> 12
+system/camerad/cameras/camera_qcom2.cc: -- Opening devices
+open: /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0 -> 12
+system/camerad/cameras/camera_qcom2.cc: opened video0
+open: /dev/v4l/by-path/platform-cam_sync-video-index0 -> 13
+system/camerad/cameras/camera_qcom2.cc: opened video1 (cam_sync)
+open: /dev/v4l-subdev1 -> 14
+system/camerad/cameras/camera_qcom2.cc: opened isp
+system/camerad/cameras/camera_qcom2.cc: -- Query ICP for MMU handles
+-> /dev/v4l-subdev1       CAM_QUERY_CAP(1) 144 0x7fc94089f0
+  cam_isp_query_cap_cmd
+   .device_iommu: 0x0 0x0
+   .cdm_iommu: 0x0 0x0
+system/camerad/cameras/camera_qcom2.cc: using MMU handle: 3429
+system/camerad/cameras/camera_qcom2.cc: using MMU handle: 39ce1
+system/camerad/cameras/camera_qcom2.cc: -- Subscribing
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0 VIDIOC_SUBSCRIBE_EVENT
+  sub.id:   0x2
+  sub.type: 0x8000000
+system/camerad/cameras/camera_qcom2.cc: req mgr subscribe: 0
+system/camerad/cameras/camera_qcom2.cc: driver camera opened
+open: /dev/v4l-subdev8 -> 15
+system/camerad/cameras/camera_qcom2.cc: opened sensor for 1
+system/camerad/cameras/camera_qcom2.cc: -- Probing sensor 1
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_ALLOC_BUF, size:        112 flags: CAM_MEM_FLAG_KMD_ACCESS CAM_MEM_FLAG_UMD_ACCESS CAM_MEM_FLAG_CMD_BUF_TYPE align: 0x8 hdls:0   ptr: 0x0 0 (nil)  
+  CAM_REQ_MGR_ALLOC_BUF, size:        112 flags: CAM_MEM_FLAG_KMD_ACCESS CAM_MEM_FLAG_UMD_ACCESS CAM_MEM_FLAG_CMD_BUF_TYPE align: 0x8 hdls:0   ptr: 0x100001 16 (nil)  
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_ALLOC_BUF, size:         24 flags: CAM_MEM_FLAG_KMD_ACCESS CAM_MEM_FLAG_UMD_ACCESS CAM_MEM_FLAG_CMD_BUF_TYPE align: 0x8 hdls:0   ptr: 0x0 0 (nil)  
+  CAM_REQ_MGR_ALLOC_BUF, size:         24 flags: CAM_MEM_FLAG_KMD_ACCESS CAM_MEM_FLAG_UMD_ACCESS CAM_MEM_FLAG_CMD_BUF_TYPE align: 0x8 hdls:0   ptr: 0x110002 17 (nil)  
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_ALLOC_BUF, size:        196 flags: CAM_MEM_FLAG_KMD_ACCESS CAM_MEM_FLAG_UMD_ACCESS CAM_MEM_FLAG_CMD_BUF_TYPE align: 0x8 hdls:0   ptr: 0x0 0 (nil)  
+  CAM_REQ_MGR_ALLOC_BUF, size:        196 flags: CAM_MEM_FLAG_KMD_ACCESS CAM_MEM_FLAG_UMD_ACCESS CAM_MEM_FLAG_CMD_BUF_TYPE align: 0x8 hdls:0   ptr: 0x120003 18 (nil)  
+-> /dev/v4l-subdev8     
+cam_packet: 100001
+ header: op_code: 0x1000003 size: 112: request_id:0  flags:0  padding:0
+  cmd_buf:      0x0 -> 2
+    mem_handle: 110002  offset:   0 size:  24 length:  24 type:  10 meta_data: 0
+      slave_addr: 0x30  i2c_freq_mode: 1 cmd_type: 4
+      data_type: 2  addr_type: 2  op_code: 3 cmd_type:1
+      reg_addr: 0x3000 expected_data: 0x354 data_mask: 0x0 camera_id: 0x1
+    mem_handle: 120003  offset:   0 size: 196 length: 196 type:   7 meta_data: 0
+      (0) POWER count: 4  cmd_type: 2
+        power_seq_type: 3  config_val_low: 0x0  config_val_high: 0x0
+        power_seq_type: 1  config_val_low: 0x0  config_val_high: 0x0
+        power_seq_type: 2  config_val_low: 0x0  config_val_high: 0x0
+        power_seq_type: 8  config_val_low: 0x0  config_val_high: 0x0
+      (52) POWER count: 1  cmd_type: 9
+           WAIT delay: 1 op_code: 3 cmd_type: 9
+      (56) POWER count: 1  cmd_type: 2
+        power_seq_type: 0  config_val_low: 0x124f800  config_val_high: 0x0
+      (72) POWER count: 1  cmd_type: 9
+           WAIT delay: 1 op_code: 3 cmd_type: 9
+      (76) POWER count: 1  cmd_type: 2
+        power_seq_type: 8  config_val_low: 0x1  config_val_high: 0x0
+      (92) POWER count: 34  cmd_type: 9
+           WAIT delay: 34 op_code: 3 cmd_type: 9
+      (96) POWER count: 1  cmd_type: 3
+        power_seq_type: 0  config_val_low: 0x0  config_val_high: 0x0
+      (112) POWER count: 1  cmd_type: 9
+           WAIT delay: 1 op_code: 3 cmd_type: 9
+      (116) POWER count: 1  cmd_type: 3
+        power_seq_type: 8  config_val_low: 0x1  config_val_high: 0x0
+      (132) POWER count: 1  cmd_type: 9
+           WAIT delay: 1 op_code: 3 cmd_type: 9
+      (136) POWER count: 1  cmd_type: 3
+        power_seq_type: 8  config_val_low: 0x0  config_val_high: 0x0
+      (152) POWER count: 1  cmd_type: 9
+           WAIT delay: 1 op_code: 3 cmd_type: 9
+      (156) POWER count: 3  cmd_type: 3
+        power_seq_type: 2  config_val_low: 0x0  config_val_high: 0x0
+        power_seq_type: 1  config_val_low: 0x0  config_val_high: 0x0
+        power_seq_type: 3  config_val_low: 0x0  config_val_high: 0x0
+  io_configs:   0x0 -> 0
+  patch:        0x0 -> 0
+  kmd_cmd_buf_index:  -1
+  kmd_cmd_buf_offset: 0x0
+  CAM_SENSOR_PROBE_CMD(100001 8)
+system/camerad/cameras/camera_qcom2.cc: probing the sensor: 0
+system/camerad/cameras/camera_qcom2.cc: -- Probing sensor 1 success
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_CREATE_SESSION /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0 -1470724160
+  CAM_REQ_MGR_CREATE_SESSION /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0 0
+system/camerad/cameras/camera_qcom2.cc: get session: 0 0x830200
+system/camerad/cameras/camera_qcom2.cc: -- Accessing sensor
+-> /dev/v4l-subdev8       CAM_ACQUIRE_DEV /dev/v4l-subdev8
+    session_handle:0x830200  dev_handle:0x0  handle_type:1  num_resources:0  resource_hdl:0x0
+system/camerad/cameras/camera_qcom2.cc: acquire sensor dev
+system/camerad/cameras/camera_qcom2.cc: -- Configuring sensor
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_ALLOC_BUF, size:         88 flags: CAM_MEM_FLAG_KMD_ACCESS CAM_MEM_FLAG_UMD_ACCESS CAM_MEM_FLAG_CMD_BUF_TYPE align: 0x8 hdls:0   ptr: 0x0 0 (nil)  
+  CAM_REQ_MGR_ALLOC_BUF, size:         88 flags: CAM_MEM_FLAG_KMD_ACCESS CAM_MEM_FLAG_UMD_ACCESS CAM_MEM_FLAG_CMD_BUF_TYPE align: 0x8 hdls:0   ptr: 0x130004 19 (nil)  
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_ALLOC_BUF, size:        608 flags: CAM_MEM_FLAG_KMD_ACCESS CAM_MEM_FLAG_UMD_ACCESS CAM_MEM_FLAG_CMD_BUF_TYPE align: 0x8 hdls:0   ptr: 0x0 0 (nil)  
+  CAM_REQ_MGR_ALLOC_BUF, size:        608 flags: CAM_MEM_FLAG_KMD_ACCESS CAM_MEM_FLAG_UMD_ACCESS CAM_MEM_FLAG_CMD_BUF_TYPE align: 0x8 hdls:0   ptr: 0x140005 20 (nil)  
+-> /dev/v4l-subdev8       CAM_CONFIG_DEV /dev/v4l-subdev8
+    session_handle:0x830200  dev_handle:0x720101  offset:0x0  packet_handle:0x130004
+
+cam_packet: 130004
+ header: op_code: 0x4 size: 88: request_id:0  flags:0  padding:0
+  cmd_buf:      0x0 -> 1
+    mem_handle: 140005  offset:   0 size: 608 length: 608 type:   7 meta_data: 0
+      (0) POWER count: 75  cmd_type: 5
+        I2C count:75 op_code:1 cmd_type:5 data_type:2 addr_type:2
+{0x301a, 0x18}, {0x302a, 0x6}, {0x302c, 0x1}, {0x302e, 0x2}, {0x3030, 0x37}, {0x3036, 0xc}, {0x3038, 0x1}, {0x3040, 0xc000}, {0x3004, 0x0}, {0x3008, 0x787}, {0x3002, 0x0}, {0x3006, 0x4b7}, {0x3032, 0x0}, {0x30a2, 0x1}, {0x30a6, 0x1}, {0x3402, 0x788}, {0x3404, 0x4b8}, {0x3064, 0x1982}, {0x30ba, 0x11f2}, {0x30ce, 0x120}, {0x340a, 0xe0}, {0x340c, 0x802}, {0x300c, 0x672}, {0x300a, 0x855}, {0x3042, 0x0}, {0x31ae, 0x204}, {0x31ac, 0xc0c}, {0x3342, 0x1212}, {0x3346, 0x1212}, {0x334a, 0x1212}, {0x334e, 0x1212}, {0x3344, 0x11}, {0x3348, 0x111}, {0x334c, 0x211}, {0x3350, 0x311}, {0x31b0, 0x53}, {0x31b2, 0x3b}, {0x301a, 0x1c}, {0x3092, 0xc24}, {0x337a, 0xc80}, {0x3370, 0x3b1}, {0x3044, 0x400}, {0x30b4, 0x7}, {0x30b8, 0x7}, {0x31e0, 0x3}, {0x3082, 0x4}, {0x3238, 0x444}, {0x1008, 0x361}, {0x100c, 0x589}, {0x100e, 0x7b1}, {0x1010, 0x139}, {0x3014, 0x8cb}, {0x321e, 0x894}, {0x31d0, 0x0}, {0x33da, 0x0}, {0x318e, 0x200}, {0x3100, 0x4000}, {0x3280, 0xccc}, {0x3282, 0xccc}, {0x3284, 0xccc}, {0x3286, 0xccc}, {0x3288, 0xfa0}, {0x328a, 0xfa0}, {0x328c, 0xfa0}, {0x328e, 0xfa0}, {0x3022, 0x1}, {0x3366, 0xff77}, {0x3060, 0x3333}, {0x3362, 0x0}, {0x305a, 0xf8}, {0x3058, 0x122}, {0x3056, 0x9a}, {0x305c, 0x9a}, {0x3022, 0x0}, {0x3012, 0x5}, 
+  io_configs:   0x0 -> 0
+  patch:        0x0 -> 0
+  kmd_cmd_buf_index:  -1
+  kmd_cmd_buf_offset: 0x0
+-> /dev/v4l-subdev1       CAM_ACQUIRE_DEV /dev/v4l-subdev1
+    session_handle:0x830200  dev_handle:0x0  handle_type:1  num_resources:1  resource_hdl:0x7fc94088d0
+     resource_id: 0 length: 132 handle_type: 1 res_hdl: 7fc94088f4
+cam_isp_in_port_info
+   in_port_info.res_type = 0x4002
+   in_port_info.lane_type = 0x0
+   in_port_info.lane_num = 0x4
+   in_port_info.lane_cfg = 0x3210
+   in_port_info.vc = 0x0
+   in_port_info.dt = 0x12
+   in_port_info.format = 0x4
+   in_port_info.test_pattern = 0x2
+   in_port_info.usage_type = 0x0
+   in_port_info.left_start = 0x0
+   in_port_info.left_stop = 0x787
+   in_port_info.left_width = 0x788
+   in_port_info.right_start = 0x0
+   in_port_info.right_stop = 0x787
+   in_port_info.right_width = 0x788
+   in_port_info.line_start = 0x0
+   in_port_info.line_stop = 0x4c3
+   in_port_info.height = 0x4c4
+   in_port_info.pixel_clk = 0x0
+   in_port_info.batch_size = 0x0
+   in_port_info.dsp_mode = 0x0
+   in_port_info.hbi_cnt = 0x0
+   in_port_info.custom_csid = 0x0
+   in_port_info.reserved = 0x0
+   in_port_info.num_out_res = 0x1
+{
+   .res_type = 0x3006, .format = 0x4,
+   .width = 0x788, .height = 0x4c4,
+   .comp_grp_id = 0x0, .split_point = 0x0, .secure_mode = 0x0,
+},
+system/camerad/cameras/camera_qcom2.cc: acquire isp dev
+open: /dev/v4l-subdev4 -> 21
+system/camerad/cameras/camera_qcom2.cc: opened csiphy for 1
+-> /dev/v4l-subdev4       CAM_ACQUIRE_DEV /dev/v4l-subdev4
+    session_handle:0x830200  dev_handle:0x0  handle_type:1  num_resources:1  resource_hdl:0x7fc94088c8
+system/camerad/cameras/camera_qcom2.cc: acquire csiphy dev
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_ALLOC_BUF, size:     984480 flags: CAM_MEM_FLAG_HW_READ_WRITE CAM_MEM_FLAG_KMD_ACCESS CAM_MEM_FLAG_UMD_ACCESS CAM_MEM_FLAG_CMD_BUF_TYPE align: 0x20 hdls:2   ptr: 0x0 0 (nil)  mmu_hdl[0] = 3429  mmu_hdl[1] = 39ce1  
+  CAM_REQ_MGR_ALLOC_BUF, size:     984480 flags: CAM_MEM_FLAG_HW_READ_WRITE CAM_MEM_FLAG_KMD_ACCESS CAM_MEM_FLAG_UMD_ACCESS CAM_MEM_FLAG_CMD_BUF_TYPE align: 0x20 hdls:2   ptr: 0x160006 22 (nil)  mmu_hdl[0] = 3429  mmu_hdl[1] = 39ce1  
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_ALLOC_BUF, size:        324 flags: CAM_MEM_FLAG_KMD_ACCESS CAM_MEM_FLAG_UMD_ACCESS CAM_MEM_FLAG_CMD_BUF_TYPE align: 0x8 hdls:0   ptr: 0x0 0 (nil)  
+  CAM_REQ_MGR_ALLOC_BUF, size:        324 flags: CAM_MEM_FLAG_KMD_ACCESS CAM_MEM_FLAG_UMD_ACCESS CAM_MEM_FLAG_CMD_BUF_TYPE align: 0x8 hdls:0   ptr: 0x170007 23 (nil)  
+-> /dev/v4l-subdev1       CAM_CONFIG_DEV /dev/v4l-subdev1
+    session_handle:0x830200  dev_handle:0x2b0102  offset:0x0  packet_handle:0x100001
+
+cam_packet: 100001
+ header: op_code: 0xf000000 size: 112: request_id:0  flags:0  padding:0
+  cmd_buf:      0x0 -> 2
+    mem_handle: 160006  offset:   0 size: 65624 length:   0 type:   5 meta_data: 3
+CAM_CMD_BUF_DIRECT
+    mem_handle: 170007  offset:   0 size: 324 length: 324 type:   9 meta_data: 12
+blob type 0 blob size 32 block size 36
+cam_isp_resource_hfr_config
+  .num_ports = 0x1
+    .port_hfr_config[0].resource_type = 0x3006
+    .port_hfr_config[0].subsample_pattern = 0x1
+    .port_hfr_config[0].subsample_period = 0x0
+    .port_hfr_config[0].framedrop_pattern = 0x1
+    .port_hfr_config[0].framedrop_period = 0x0
+blob type 1 blob size 56 block size 60
+cam_isp_clock_config
+  .usage_type = 0x1
+  .num_rdi = 0x4
+  .left_pix_hz = 404000000
+  .right_pix_hz = 404000000
+  .rdi_hz[0] = 404000000
+blob type 2 blob size 224 block size 228
+cam_isp_bw_config
+  .usage_type = 0x1
+  .num_rdi = 0x4
+  .left_pix_vote.resource_id = 0x0
+  .left_pix_vote.cam_bw_bps = 0x1ad27480
+  .left_pix_vote.rext_bw_bps = 0x1ad27480
+  .right_pix_vote.resource_id = 0x0
+  .right_pix_vote.cam_bw_bps = 0x0
+  .right_pix_vote.rext_bw_bps = 0x0
+  .rdi_vote[0].resource_id = 0x0
+  .rdi_vote[0].cam_bw_bps = 0x206ee11c0
+  .rdi_vote[0].ext_bw_bps = 0x206ee11c0
+  io_configs:   0x0 -> 0
+  patch:        0x0 -> 0
+  kmd_cmd_buf_index:  0
+  kmd_cmd_buf_offset: 0x0
+system/camerad/cameras/camera_qcom2.cc: -- Config CSI PHY
+-> /dev/v4l-subdev4       CAM_CONFIG_DEV /dev/v4l-subdev4
+    session_handle:0x830200  dev_handle:0x4b0103  offset:0x0  packet_handle:0x130004
+
+cam_packet: 130004
+ header: op_code: 0x0 size: 88: request_id:0  flags:0  padding:0
+  cmd_buf:      0x0 -> 1
+    mem_handle: 110002  offset:   0 size:  24 length:  24 type:   9 meta_data: 0
+cam_csiphy_info
+   .lane_mask = 0x1f,
+   .lane_assign = 0x3210,
+   .csiphy_3phase = 0x0,
+   .combo_mode = 0x0,
+   .lane_cnt = 0x4,
+   .secure_mode = 0x0,
+   .settle_time = 0x189640200,
+   .data_rate = 0x2dc6c00,
+  io_configs:   0x0 -> 0
+  patch:        0x0 -> 0
+  kmd_cmd_buf_index:  -1
+  kmd_cmd_buf_offset: 0x0
+system/camerad/cameras/camera_qcom2.cc: -- Link devices
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_LINK session_hdl:0x830200 num_devices: 2 link_hdl:0x0 devices:0x2b0102 0x720101 
+system/camerad/cameras/camera_qcom2.cc: link: 0 session: 0x830200 isp: 0x2B0102 sensors: 0x720101 link: 0x4D0104
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_LINK_CONTROL ops:0 session_hdl:0x830200 num_links:1 link_hdls:0x4d0104 
+system/camerad/cameras/camera_qcom2.cc: link control: 0
+-> /dev/v4l-subdev4       CAM_START_DEV 7fc9408720 8
+system/camerad/cameras/camera_qcom2.cc: start csiphy: 0
+-> /dev/v4l-subdev1       CAM_START_DEV 7fc9408720 8
+system/camerad/cameras/camera_qcom2.cc: start isp: 0
+system/camerad/cameras/camera_qcom2.cc: road camera opened
+system/camerad/cameras/camera_qcom2.cc: wide road camera opened
+system/camerad/cameras/camera_qcom2.cc: camera init 1
+open: /dev/ion -> 24
+-> /dev/ion             ION_IOC_ALLOC(C0204900)
+  len:          0x35e948
+  align:        0x1000
+  heap_id_mask: 0x2000000
+  flags:        0x1
+-> /dev/ion             ION_IOC_SHARE
+  handle:        0x1
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0200948 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300947 = 0
+-> /dev/ion             ION_IOC_ALLOC(C0204900)
+  len:          0x35e948
+  align:        0x1000
+  heap_id_mask: 0x2000000
+  flags:        0x1
+-> /dev/ion             ION_IOC_SHARE
+  handle:        0x2
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0200948 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300947 = 0
+-> /dev/ion             ION_IOC_ALLOC(C0204900)
+  len:          0x35e948
+  align:        0x1000
+  heap_id_mask: 0x2000000
+  flags:        0x1
+-> /dev/ion             ION_IOC_SHARE
+  handle:        0x3
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0200948 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300947 = 0
+-> /dev/ion             ION_IOC_ALLOC(C0204900)
+  len:          0x35e948
+  align:        0x1000
+  heap_id_mask: 0x2000000
+  flags:        0x1
+-> /dev/ion             ION_IOC_SHARE
+  handle:        0x4
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0200948 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300947 = 0
+system/camerad/cameras/camera_common.cc: allocated 4 CL buffers
+-> /dev/ion             ION_IOC_ALLOC(C0204900)
+  len:          0x495008
+  align:        0x1000
+  heap_id_mask: 0x2000000
+  flags:        0x1
+-> /dev/ion             ION_IOC_SHARE
+  handle:        0x5
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0200948 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300947 = 0
+-> /dev/ion             ION_IOC_ALLOC(C0204900)
+  len:          0x495008
+  align:        0x1000
+  heap_id_mask: 0x2000000
+  flags:        0x1
+-> /dev/ion             ION_IOC_SHARE
+  handle:        0x6
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0200948 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300947 = 0
+-> /dev/ion             ION_IOC_ALLOC(C0204900)
+  len:          0x495008
+  align:        0x1000
+  heap_id_mask: 0x2000000
+  flags:        0x1
+-> /dev/ion             ION_IOC_SHARE
+  handle:        0x7
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0200948 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300947 = 0
+-> /dev/ion             ION_IOC_ALLOC(C0204900)
+  len:          0x495008
+  align:        0x1000
+  heap_id_mask: 0x2000000
+  flags:        0x1
+-> /dev/ion             ION_IOC_SHARE
+  handle:        0x8
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0200948 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300947 = 0
+-> /dev/ion             ION_IOC_ALLOC(C0204900)
+  len:          0x495008
+  align:        0x1000
+  heap_id_mask: 0x2000000
+  flags:        0x1
+-> /dev/ion             ION_IOC_SHARE
+  handle:        0x9
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0200948 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300947 = 0
+-> /dev/ion             ION_IOC_ALLOC(C0204900)
+  len:          0x495008
+  align:        0x1000
+  heap_id_mask: 0x2000000
+  flags:        0x1
+-> /dev/ion             ION_IOC_SHARE
+  handle:        0xa
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0200948 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300947 = 0
+-> /dev/ion             ION_IOC_ALLOC(C0204900)
+  len:          0x495008
+  align:        0x1000
+  heap_id_mask: 0x2000000
+  flags:        0x1
+-> /dev/ion             ION_IOC_SHARE
+  handle:        0xb
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0200948 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300947 = 0
+-> /dev/ion             ION_IOC_ALLOC(C0204900)
+  len:          0x495008
+  align:        0x1000
+  heap_id_mask: 0x2000000
+  flags:        0x1
+-> /dev/ion             ION_IOC_SHARE
+  handle:        0xc
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0200948 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300947 = 0
+-> /dev/ion             ION_IOC_ALLOC(C0204900)
+  len:          0x495008
+  align:        0x1000
+  heap_id_mask: 0x2000000
+  flags:        0x1
+-> /dev/ion             ION_IOC_SHARE
+  handle:        0xd
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0200948 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300947 = 0
+-> /dev/ion             ION_IOC_ALLOC(C0204900)
+  len:          0x495008
+  align:        0x1000
+  heap_id_mask: 0x2000000
+  flags:        0x1
+-> /dev/ion             ION_IOC_SHARE
+  handle:        0xe
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0200948 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300947 = 0
+-> /dev/ion             ION_IOC_ALLOC(C0204900)
+  len:          0x495008
+  align:        0x1000
+  heap_id_mask: 0x2000000
+  flags:        0x1
+-> /dev/ion             ION_IOC_SHARE
+  handle:        0xf
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0200948 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300947 = 0
+-> /dev/ion             ION_IOC_ALLOC(C0204900)
+  len:          0x495008
+  align:        0x1000
+  heap_id_mask: 0x2000000
+  flags:        0x1
+-> /dev/ion             ION_IOC_SHARE
+  handle:        0x10
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0200948 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300947 = 0
+-> /dev/ion             ION_IOC_ALLOC(C0204900)
+  len:          0x495008
+  align:        0x1000
+  heap_id_mask: 0x2000000
+  flags:        0x1
+-> /dev/ion             ION_IOC_SHARE
+  handle:        0x11
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0200948 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300947 = 0
+-> /dev/ion             ION_IOC_ALLOC(C0204900)
+  len:          0x495008
+  align:        0x1000
+  heap_id_mask: 0x2000000
+  flags:        0x1
+-> /dev/ion             ION_IOC_SHARE
+  handle:        0x12
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0200948 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300947 = 0
+-> /dev/ion             ION_IOC_ALLOC(C0204900)
+  len:          0x495008
+  align:        0x1000
+  heap_id_mask: 0x2000000
+  flags:        0x1
+-> /dev/ion             ION_IOC_SHARE
+  handle:        0x13
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0200948 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300947 = 0
+-> /dev/ion             ION_IOC_ALLOC(C0204900)
+  len:          0x495008
+  align:        0x1000
+  heap_id_mask: 0x2000000
+  flags:        0x1
+-> /dev/ion             ION_IOC_SHARE
+  handle:        0x14
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0200948 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300947 = 0
+-> /dev/ion             ION_IOC_ALLOC(C0204900)
+  len:          0x495008
+  align:        0x1000
+  heap_id_mask: 0x2000000
+  flags:        0x1
+-> /dev/ion             ION_IOC_SHARE
+  handle:        0x15
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0200948 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300947 = 0
+-> /dev/ion             ION_IOC_ALLOC(C0204900)
+  len:          0x495008
+  align:        0x1000
+  heap_id_mask: 0x2000000
+  flags:        0x1
+-> /dev/ion             ION_IOC_SHARE
+  handle:        0x16
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0200948 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300947 = 0
+-> /dev/ion             ION_IOC_ALLOC(C0204900)
+  len:          0x495008
+  align:        0x1000
+  heap_id_mask: 0x2000000
+  flags:        0x1
+-> /dev/ion             ION_IOC_SHARE
+  handle:        0x17
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0200948 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300947 = 0
+-> /dev/ion             ION_IOC_ALLOC(C0204900)
+  len:          0x495008
+  align:        0x1000
+  heap_id_mask: 0x2000000
+  flags:        0x1
+-> /dev/ion             ION_IOC_SHARE
+  handle:        0x18
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0200948 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300947 = 0
+open: /dev/shm/visionipc_camerad_0 -> 49
+open: /dev/urandom -> 49
+system/camerad/cameras/camera_common.cc: created 20 YUV vipc buffers with size 2048x1216
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300945 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0300945 = 0
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_MAP_BUF mmu_hdls:0x3429 num_hdl:1 flags:0x1 fd:25 buf_handle:0x0 vaddr:0x0
+system/camerad/cameras/camera_qcom2.cc: map buf req: (fd: 25) 0x190009 0
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_MAP_BUF mmu_hdls:0x3429 num_hdl:1 flags:0x1 fd:26 buf_handle:0x0 vaddr:0x0
+system/camerad/cameras/camera_qcom2.cc: map buf req: (fd: 26) 0x1a000a 0
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_MAP_BUF mmu_hdls:0x3429 num_hdl:1 flags:0x1 fd:27 buf_handle:0x0 vaddr:0x0
+system/camerad/cameras/camera_qcom2.cc: map buf req: (fd: 27) 0x1b000b 0
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_MAP_BUF mmu_hdls:0x3429 num_hdl:1 flags:0x1 fd:28 buf_handle:0x0 vaddr:0x0
+system/camerad/cameras/camera_qcom2.cc: map buf req: (fd: 28) 0x1c000c 0
+-> /dev/v4l/by-path/platform-cam_sync-video-index0   unknown op: 0x0
+  CAM_SYNC_CREATE: NodeOutputPortFence 1
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_SCHED_REQ: session_hdl:0x830200 link_hdl:0x4d0104 bubble_enable:0 sync_mode:0 req_id:0x1
+  CAM_REQ_MGR_SCHED_REQ: session_hdl:0x830200 link_hdl:0x4d0104 bubble_enable:0 sync_mode:0 req_id:0x1
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_ALLOC_BUF, size:         64 flags: CAM_MEM_FLAG_KMD_ACCESS CAM_MEM_FLAG_UMD_ACCESS CAM_MEM_FLAG_CMD_BUF_TYPE align: 0x8 hdls:0   ptr: 0x0 0 (nil)  
+  CAM_REQ_MGR_ALLOC_BUF, size:         64 flags: CAM_MEM_FLAG_KMD_ACCESS CAM_MEM_FLAG_UMD_ACCESS CAM_MEM_FLAG_CMD_BUF_TYPE align: 0x8 hdls:0   ptr: 0x31000d 49 (nil)  
+-> /dev/v4l-subdev8       CAM_CONFIG_DEV /dev/v4l-subdev8
+    session_handle:0x830200  dev_handle:0x720101  offset:0x0  packet_handle:0x31000d
+
+cam_packet: 31000d
+ header: op_code: 0x7f size: 64: request_id:1  flags:0  padding:0
+  cmd_buf:      0x0 -> 0
+  io_configs:   0x0 -> 0
+  patch:        0x0 -> 0
+  kmd_cmd_buf_index:  -1
+  kmd_cmd_buf_offset: 0x0
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_ALLOC_BUF, size:        368 flags: CAM_MEM_FLAG_KMD_ACCESS CAM_MEM_FLAG_UMD_ACCESS CAM_MEM_FLAG_CMD_BUF_TYPE align: 0x8 hdls:0   ptr: 0x0 0 (nil)  
+  CAM_REQ_MGR_ALLOC_BUF, size:        368 flags: CAM_MEM_FLAG_KMD_ACCESS CAM_MEM_FLAG_UMD_ACCESS CAM_MEM_FLAG_CMD_BUF_TYPE align: 0x8 hdls:0   ptr: 0x32000e 50 (nil)  
+-> /dev/v4l-subdev1       CAM_CONFIG_DEV /dev/v4l-subdev1
+    session_handle:0x830200  dev_handle:0x2b0102  offset:0x0  packet_handle:0x32000e
+
+cam_packet: 32000e
+ header: op_code: 0xf000001 size: 368: request_id:1  flags:0  padding:0
+  cmd_buf:      0x0 -> 2
+    mem_handle: 160006  offset: 65632 size: 65624 length:   0 type:   5 meta_data: 3
+CAM_CMD_BUF_DIRECT
+    mem_handle: 170007  offset:  96 size: 324 length: 228 type:   9 meta_data: 12
+blob type 0 blob size 32 block size 36
+cam_isp_resource_hfr_config
+  .num_ports = 0x1
+    .port_hfr_config[0].resource_type = 0x3006
+    .port_hfr_config[0].subsample_pattern = 0x1
+    .port_hfr_config[0].subsample_period = 0x0
+    .port_hfr_config[0].framedrop_pattern = 0x1
+    .port_hfr_config[0].framedrop_period = 0x0
+blob type 1 blob size 56 block size 60
+cam_isp_clock_config
+  .usage_type = 0x1
+  .num_rdi = 0x4
+  .left_pix_hz = 404000000
+  .right_pix_hz = 404000000
+  .rdi_hz[0] = 404000000
+blob type 2 blob size 224 block size 228
+cam_isp_bw_config
+  .usage_type = 0x1
+  .num_rdi = 0x4
+  .left_pix_vote.resource_id = 0x0
+  .left_pix_vote.cam_bw_bps = 0x1ad27480
+  .left_pix_vote.rext_bw_bps = 0x1ad27480
+  .right_pix_vote.resource_id = 0x0
+  .right_pix_vote.cam_bw_bps = 0x0
+  .right_pix_vote.rext_bw_bps = 0x0
+  .rdi_vote[0].resource_id = 0x0
+  .rdi_vote[0].cam_bw_bps = 0x206ee11c0
+  .rdi_vote[0].ext_bw_bps = 0x206ee11c0
+  io_configs:   0x30 -> 1
+
+io_cfg 0
+   .mem_handle:190009 0 0
+   .offsets:0 0 0
+   .cam_plane_cfg[0]
+     .width = 0x788,
+     .height = 0x4c4,
+     .plane_stride = 0xb50,
+     .slice_height = 0x4c4,
+     .meta_stride = 0x0,
+     .meta_size = 0x0,
+     .meta_offset = 0x0,
+     .packer_config = 0x0,
+     .mode_config = 0x0,
+     .tile_config = 0x0,
+     .h_init = 0x0,
+     .v_init = 0x0,
+   .format = 0x4,
+   .color_space = 0x0,
+   .color_pattern = 0x5,
+   .bpp = 0xc,
+   .rotation = 0x0,
+   .resource_type = 0x3006,
+   .fence = 0x1,
+   .early_fence = 0x0,
+   .cam_cmd_buf_desc
+     .mem_handle = 0x0,
+     .offset = 0x0,
+     .size = 0x0,
+     .length = 0x0,
+     .type = 0x0,
+     .meta_data = 0x0,
+   .direction = 0x2,
+   .batch_size = 0x0,
+   .subsample_pattern = 0x1,
+   .subsample_period = 0x0,
+   .framedrop_pattern = 0x1,
+   .framedrop_period = 0x0,
+   .flag = 0x0,
+   .padding = 0x0,
+  patch:        0x0 -> 0
+  kmd_cmd_buf_index:  0
+  kmd_cmd_buf_offset: 0x0
+-> /dev/v4l/by-path/platform-cam_sync-video-index0   unknown op: 0x0
+  CAM_SYNC_CREATE: NodeOutputPortFence 2
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_SCHED_REQ: session_hdl:0x830200 link_hdl:0x4d0104 bubble_enable:0 sync_mode:0 req_id:0x2
+  CAM_REQ_MGR_SCHED_REQ: session_hdl:0x830200 link_hdl:0x4d0104 bubble_enable:0 sync_mode:0 req_id:0x2
+-> /dev/v4l-subdev8       CAM_CONFIG_DEV /dev/v4l-subdev8
+    session_handle:0x830200  dev_handle:0x720101  offset:0x0  packet_handle:0x31000d
+
+cam_packet: 31000d
+ header: op_code: 0x7f size: 64: request_id:2  flags:0  padding:0
+  cmd_buf:      0x0 -> 0
+  io_configs:   0x0 -> 0
+  patch:        0x0 -> 0
+  kmd_cmd_buf_index:  -1
+  kmd_cmd_buf_offset: 0x0
+-> /dev/v4l-subdev1       CAM_CONFIG_DEV /dev/v4l-subdev1
+    session_handle:0x830200  dev_handle:0x2b0102  offset:0x0  packet_handle:0x32000e
+
+cam_packet: 32000e
+ header: op_code: 0xf000001 size: 368: request_id:2  flags:0  padding:0
+  cmd_buf:      0x0 -> 2
+    mem_handle: 160006  offset: 131264 size: 65624 length:   0 type:   5 meta_data: 3
+CAM_CMD_BUF_DIRECT
+    mem_handle: 170007  offset:  96 size: 324 length: 228 type:   9 meta_data: 12
+blob type 0 blob size 32 block size 36
+cam_isp_resource_hfr_config
+  .num_ports = 0x1
+    .port_hfr_config[0].resource_type = 0x3006
+    .port_hfr_config[0].subsample_pattern = 0x1
+    .port_hfr_config[0].subsample_period = 0x0
+    .port_hfr_config[0].framedrop_pattern = 0x1
+    .port_hfr_config[0].framedrop_period = 0x0
+blob type 1 blob size 56 block size 60
+cam_isp_clock_config
+  .usage_type = 0x1
+  .num_rdi = 0x4
+  .left_pix_hz = 404000000
+  .right_pix_hz = 404000000
+  .rdi_hz[0] = 404000000
+blob type 2 blob size 224 block size 228
+cam_isp_bw_config
+  .usage_type = 0x1
+  .num_rdi = 0x4
+  .left_pix_vote.resource_id = 0x0
+  .left_pix_vote.cam_bw_bps = 0x1ad27480
+  .left_pix_vote.rext_bw_bps = 0x1ad27480
+  .right_pix_vote.resource_id = 0x0
+  .right_pix_vote.cam_bw_bps = 0x0
+  .right_pix_vote.rext_bw_bps = 0x0
+  .rdi_vote[0].resource_id = 0x0
+  .rdi_vote[0].cam_bw_bps = 0x206ee11c0
+  .rdi_vote[0].ext_bw_bps = 0x206ee11c0
+  io_configs:   0x30 -> 1
+
+io_cfg 0
+   .mem_handle:1a000a 0 0
+   .offsets:0 0 0
+   .cam_plane_cfg[0]
+     .width = 0x788,
+     .height = 0x4c4,
+     .plane_stride = 0xb50,
+     .slice_height = 0x4c4,
+     .meta_stride = 0x0,
+     .meta_size = 0x0,
+     .meta_offset = 0x0,
+     .packer_config = 0x0,
+     .mode_config = 0x0,
+     .tile_config = 0x0,
+     .h_init = 0x0,
+     .v_init = 0x0,
+   .format = 0x4,
+   .color_space = 0x0,
+   .color_pattern = 0x5,
+   .bpp = 0xc,
+   .rotation = 0x0,
+   .resource_type = 0x3006,
+   .fence = 0x2,
+   .early_fence = 0x0,
+   .cam_cmd_buf_desc
+     .mem_handle = 0x0,
+     .offset = 0x0,
+     .size = 0x0,
+     .length = 0x0,
+     .type = 0x0,
+     .meta_data = 0x0,
+   .direction = 0x2,
+   .batch_size = 0x0,
+   .subsample_pattern = 0x1,
+   .subsample_period = 0x0,
+   .framedrop_pattern = 0x1,
+   .framedrop_period = 0x0,
+   .flag = 0x0,
+   .padding = 0x0,
+  patch:        0x0 -> 0
+  kmd_cmd_buf_index:  0
+  kmd_cmd_buf_offset: 0x0
+-> /dev/v4l/by-path/platform-cam_sync-video-index0   unknown op: 0x0
+  CAM_SYNC_CREATE: NodeOutputPortFence 3
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_SCHED_REQ: session_hdl:0x830200 link_hdl:0x4d0104 bubble_enable:0 sync_mode:0 req_id:0x3
+  CAM_REQ_MGR_SCHED_REQ: session_hdl:0x830200 link_hdl:0x4d0104 bubble_enable:0 sync_mode:0 req_id:0x3
+-> /dev/v4l-subdev8       CAM_CONFIG_DEV /dev/v4l-subdev8
+    session_handle:0x830200  dev_handle:0x720101  offset:0x0  packet_handle:0x31000d
+
+cam_packet: 31000d
+ header: op_code: 0x7f size: 64: request_id:3  flags:0  padding:0
+  cmd_buf:      0x0 -> 0
+  io_configs:   0x0 -> 0
+  patch:        0x0 -> 0
+  kmd_cmd_buf_index:  -1
+  kmd_cmd_buf_offset: 0x0
+-> /dev/v4l-subdev1       CAM_CONFIG_DEV /dev/v4l-subdev1
+    session_handle:0x830200  dev_handle:0x2b0102  offset:0x0  packet_handle:0x32000e
+
+cam_packet: 32000e
+ header: op_code: 0xf000001 size: 368: request_id:3  flags:0  padding:0
+  cmd_buf:      0x0 -> 2
+    mem_handle: 160006  offset: 196896 size: 65624 length:   0 type:   5 meta_data: 3
+CAM_CMD_BUF_DIRECT
+    mem_handle: 170007  offset:  96 size: 324 length: 228 type:   9 meta_data: 12
+blob type 0 blob size 32 block size 36
+cam_isp_resource_hfr_config
+  .num_ports = 0x1
+    .port_hfr_config[0].resource_type = 0x3006
+    .port_hfr_config[0].subsample_pattern = 0x1
+    .port_hfr_config[0].subsample_period = 0x0
+    .port_hfr_config[0].framedrop_pattern = 0x1
+    .port_hfr_config[0].framedrop_period = 0x0
+blob type 1 blob size 56 block size 60
+cam_isp_clock_config
+  .usage_type = 0x1
+  .num_rdi = 0x4
+  .left_pix_hz = 404000000
+  .right_pix_hz = 404000000
+  .rdi_hz[0] = 404000000
+blob type 2 blob size 224 block size 228
+cam_isp_bw_config
+  .usage_type = 0x1
+  .num_rdi = 0x4
+  .left_pix_vote.resource_id = 0x0
+  .left_pix_vote.cam_bw_bps = 0x1ad27480
+  .left_pix_vote.rext_bw_bps = 0x1ad27480
+  .right_pix_vote.resource_id = 0x0
+  .right_pix_vote.cam_bw_bps = 0x0
+  .right_pix_vote.rext_bw_bps = 0x0
+  .rdi_vote[0].resource_id = 0x0
+  .rdi_vote[0].cam_bw_bps = 0x206ee11c0
+  .rdi_vote[0].ext_bw_bps = 0x206ee11c0
+  io_configs:   0x30 -> 1
+
+io_cfg 0
+   .mem_handle:1b000b 0 0
+   .offsets:0 0 0
+   .cam_plane_cfg[0]
+     .width = 0x788,
+     .height = 0x4c4,
+     .plane_stride = 0xb50,
+     .slice_height = 0x4c4,
+     .meta_stride = 0x0,
+     .meta_size = 0x0,
+     .meta_offset = 0x0,
+     .packer_config = 0x0,
+     .mode_config = 0x0,
+     .tile_config = 0x0,
+     .h_init = 0x0,
+     .v_init = 0x0,
+   .format = 0x4,
+   .color_space = 0x0,
+   .color_pattern = 0x5,
+   .bpp = 0xc,
+   .rotation = 0x0,
+   .resource_type = 0x3006,
+   .fence = 0x3,
+   .early_fence = 0x0,
+   .cam_cmd_buf_desc
+     .mem_handle = 0x0,
+     .offset = 0x0,
+     .size = 0x0,
+     .length = 0x0,
+     .type = 0x0,
+     .meta_data = 0x0,
+   .direction = 0x2,
+   .batch_size = 0x0,
+   .subsample_pattern = 0x1,
+   .subsample_period = 0x0,
+   .framedrop_pattern = 0x1,
+   .framedrop_period = 0x0,
+   .flag = 0x0,
+   .padding = 0x0,
+  patch:        0x0 -> 0
+  kmd_cmd_buf_index:  0
+  kmd_cmd_buf_offset: 0x0
+-> /dev/v4l/by-path/platform-cam_sync-video-index0   unknown op: 0x0
+  CAM_SYNC_CREATE: NodeOutputPortFence 4
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_SCHED_REQ: session_hdl:0x830200 link_hdl:0x4d0104 bubble_enable:0 sync_mode:0 req_id:0x4
+  CAM_REQ_MGR_SCHED_REQ: session_hdl:0x830200 link_hdl:0x4d0104 bubble_enable:0 sync_mode:0 req_id:0x4
+-> /dev/v4l-subdev8       CAM_CONFIG_DEV /dev/v4l-subdev8
+    session_handle:0x830200  dev_handle:0x720101  offset:0x0  packet_handle:0x31000d
+
+cam_packet: 31000d
+ header: op_code: 0x7f size: 64: request_id:4  flags:0  padding:0
+  cmd_buf:      0x0 -> 0
+  io_configs:   0x0 -> 0
+  patch:        0x0 -> 0
+  kmd_cmd_buf_index:  -1
+  kmd_cmd_buf_offset: 0x0
+-> /dev/v4l-subdev1       CAM_CONFIG_DEV /dev/v4l-subdev1
+    session_handle:0x830200  dev_handle:0x2b0102  offset:0x0  packet_handle:0x32000e
+
+cam_packet: 32000e
+ header: op_code: 0xf000001 size: 368: request_id:4  flags:0  padding:0
+  cmd_buf:      0x0 -> 2
+    mem_handle: 160006  offset: 262528 size: 65624 length:   0 type:   5 meta_data: 3
+CAM_CMD_BUF_DIRECT
+    mem_handle: 170007  offset:  96 size: 324 length: 228 type:   9 meta_data: 12
+blob type 0 blob size 32 block size 36
+cam_isp_resource_hfr_config
+  .num_ports = 0x1
+    .port_hfr_config[0].resource_type = 0x3006
+    .port_hfr_config[0].subsample_pattern = 0x1
+    .port_hfr_config[0].subsample_period = 0x0
+    .port_hfr_config[0].framedrop_pattern = 0x1
+    .port_hfr_config[0].framedrop_period = 0x0
+blob type 1 blob size 56 block size 60
+cam_isp_clock_config
+  .usage_type = 0x1
+  .num_rdi = 0x4
+  .left_pix_hz = 404000000
+  .right_pix_hz = 404000000
+  .rdi_hz[0] = 404000000
+blob type 2 blob size 224 block size 228
+cam_isp_bw_config
+  .usage_type = 0x1
+  .num_rdi = 0x4
+  .left_pix_vote.resource_id = 0x0
+  .left_pix_vote.cam_bw_bps = 0x1ad27480
+  .left_pix_vote.rext_bw_bps = 0x1ad27480
+  .right_pix_vote.resource_id = 0x0
+  .right_pix_vote.cam_bw_bps = 0x0
+  .right_pix_vote.rext_bw_bps = 0x0
+  .rdi_vote[0].resource_id = 0x0
+  .rdi_vote[0].cam_bw_bps = 0x206ee11c0
+  .rdi_vote[0].ext_bw_bps = 0x206ee11c0
+  io_configs:   0x30 -> 1
+
+io_cfg 0
+   .mem_handle:1c000c 0 0
+   .offsets:0 0 0
+   .cam_plane_cfg[0]
+     .width = 0x788,
+     .height = 0x4c4,
+     .plane_stride = 0xb50,
+     .slice_height = 0x4c4,
+     .meta_stride = 0x0,
+     .meta_size = 0x0,
+     .meta_offset = 0x0,
+     .packer_config = 0x0,
+     .mode_config = 0x0,
+     .tile_config = 0x0,
+     .h_init = 0x0,
+     .v_init = 0x0,
+   .format = 0x4,
+   .color_space = 0x0,
+   .color_pattern = 0x5,
+   .bpp = 0xc,
+   .rotation = 0x0,
+   .resource_type = 0x3006,
+   .fence = 0x4,
+   .early_fence = 0x0,
+   .cam_cmd_buf_desc
+     .mem_handle = 0x0,
+     .offset = 0x0,
+     .size = 0x0,
+     .length = 0x0,
+     .type = 0x0,
+     .meta_data = 0x0,
+   .direction = 0x2,
+   .batch_size = 0x0,
+   .subsample_pattern = 0x1,
+   .subsample_period = 0x0,
+   .framedrop_pattern = 0x1,
+   .framedrop_period = 0x0,
+   .flag = 0x0,
+   .padding = 0x0,
+  patch:        0x0 -> 0
+  kmd_cmd_buf_index:  0
+  kmd_cmd_buf_offset: 0x0
+open: /dev/shm/roadCameraState -> 51
+open: /dev/urandom -> 51
+open: /dev/shm/driverCameraState -> 51
+open: /dev/urandom -> 51
+open: /dev/shm/wideRoadCameraState -> 51
+open: /dev/urandom -> 51
+open: /dev/shm/thumbnail -> 51
+open: /dev/urandom -> 51
+system/camerad/cameras/camera_qcom2.cc: -- Starting threads
+system/camerad/cameras/camera_qcom2.cc: -- Starting devices
+system/camerad/cameras/camera_qcom2.cc: starting sensor 1
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_ALLOC_BUF, size:         16 flags: CAM_MEM_FLAG_KMD_ACCESS CAM_MEM_FLAG_UMD_ACCESS CAM_MEM_FLAG_CMD_BUF_TYPE align: 0x8 hdls:0   ptr: 0x0 0 (nil)  
+  CAM_REQ_MGR_ALLOC_BUF, size:         16 flags: CAM_MEM_FLAG_KMD_ACCESS CAM_MEM_FLAG_UMD_ACCESS CAM_MEM_FLAG_CMD_BUF_TYPE align: 0x8 hdls:0   ptr: 0x33000f 51 (nil)  
+-> /dev/v4l-subdev8       CAM_CONFIG_DEV /dev/v4l-subdev8
+    session_handle:0x830200  dev_handle:0x720101  offset:0x0  packet_handle:0x130004
+
+cam_packet: 130004
+ header: op_code: 0x4 size: 88: request_id:0  flags:0  padding:0
+  cmd_buf:      0x0 -> 1
+    mem_handle: 33000f  offset:   0 size:  16 length:  16 type:   7 meta_data: 0
+      (0) POWER count: 1  cmd_type: 5
+        I2C count:1 op_code:1 cmd_type:5 data_type:2 addr_type:2
+{0x301a, 0x91c}, 
+  io_configs:   0x0 -> 0
+  patch:        0x0 -> 0
+  kmd_cmd_buf_index:  -1
+  kmd_cmd_buf_offset: 0x0
+Starting listener for: camerad
+system/camerad/cameras/camera_qcom2.cc: -- Dequeueing Video events
+system/camerad/cameras/camera_qcom2.cc:  ************** STOPPING **************
+system/camerad/cameras/camera_qcom2.cc: -- Stop devices 2
+-> (null)                 CAM_RELEASE_DEV 7fc9408900 8
+system/camerad/cameras/camera_util.cc: VIDIOC_CAM_CONTROL error: op_code 262 - errno 9
+system/camerad/cameras/camera_qcom2.cc: release sensor: -1
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_DESTROY_SESSION
+  CAM_REQ_MGR_DESTROY_SESSION
+system/camerad/cameras/camera_util.cc: VIDIOC_CAM_CONTROL error: op_code 268 - errno 2
+system/camerad/cameras/camera_qcom2.cc: destroyed session 2: -1
+system/camerad/cameras/camera_qcom2.cc: -- Stop devices 1
+-> /dev/v4l-subdev1       CAM_STOP_DEV 7fc9408900 8
+system/camerad/cameras/camera_qcom2.cc: stop isp: 0
+-> /dev/v4l-subdev4       CAM_STOP_DEV 7fc9408900 8
+system/camerad/cameras/camera_qcom2.cc: stop csiphy: 0
+system/camerad/cameras/camera_qcom2.cc: -- Stop link control
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_LINK_CONTROL ops:1 session_hdl:0x830200 num_links:1 link_hdls:0x4d0104 
+system/camerad/cameras/camera_qcom2.cc: link control stop: 0
+system/camerad/cameras/camera_qcom2.cc: -- Unlink
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_UNLINK session_hdl:0x830200 link_hdl:0x4d0104
+system/camerad/cameras/camera_qcom2.cc: unlink: 0
+system/camerad/cameras/camera_qcom2.cc: -- Release devices
+-> /dev/v4l-subdev1       CAM_RELEASE_DEV 7fc9408900 8
+system/camerad/cameras/camera_qcom2.cc: release isp: 0
+-> /dev/v4l-subdev4       CAM_RELEASE_DEV 7fc9408900 8
+system/camerad/cameras/camera_qcom2.cc: release csiphy: 0
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_RELEASE_BUF, ptr: 0x190009
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_RELEASE_BUF, ptr: 0x1a000a
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_RELEASE_BUF, ptr: 0x1b000b
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_RELEASE_BUF, ptr: 0x1c000c
+system/camerad/cameras/camera_qcom2.cc: released buffers
+-> /dev/v4l-subdev8       CAM_RELEASE_DEV 7fc9408900 8
+system/camerad/cameras/camera_qcom2.cc: release sensor: 0
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_DESTROY_SESSION
+  CAM_REQ_MGR_DESTROY_SESSION
+system/camerad/cameras/camera_qcom2.cc: destroyed session 1: 0
+system/camerad/cameras/camera_qcom2.cc: -- Stop devices 0
+-> (null)                 CAM_RELEASE_DEV 7fc9408900 8
+system/camerad/cameras/camera_util.cc: VIDIOC_CAM_CONTROL error: op_code 262 - errno 9
+system/camerad/cameras/camera_qcom2.cc: release sensor: -1
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_DESTROY_SESSION
+  CAM_REQ_MGR_DESTROY_SESSION
+system/camerad/cameras/camera_util.cc: VIDIOC_CAM_CONTROL error: op_code 268 - errno 2
+system/camerad/cameras/camera_qcom2.cc: destroyed session 0: -1
+Stopping listener for: camerad
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/ion             ION_IOC_FREE
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/ion             ION_IOC_FREE
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/ion             ION_IOC_FREE
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/ion             ION_IOC_FREE
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/ion             ION_IOC_FREE
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/ion             ION_IOC_FREE
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/ion             ION_IOC_FREE
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/ion             ION_IOC_FREE
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/ion             ION_IOC_FREE
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/ion             ION_IOC_FREE
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/ion             ION_IOC_FREE
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/ion             ION_IOC_FREE
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/ion             ION_IOC_FREE
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/ion             ION_IOC_FREE
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/ion             ION_IOC_FREE
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/ion             ION_IOC_FREE
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/ion             ION_IOC_FREE
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/ion             ION_IOC_FREE
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/ion             ION_IOC_FREE
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/ion             ION_IOC_FREE
+system/camerad/cameras/camera_util.cc: freeing cached allocation 0x7f90946000 with size 16
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_RELEASE_BUF, ptr: 0x33000f
+system/camerad/cameras/camera_util.cc: freeing cached allocation 0x7f921fe000 with size 24
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_RELEASE_BUF, ptr: 0x110002
+system/camerad/cameras/camera_util.cc: freeing cached allocation 0x7f909f5000 with size 64
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_RELEASE_BUF, ptr: 0x31000d
+system/camerad/cameras/camera_util.cc: freeing cached allocation 0x7f921f9000 with size 88
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_RELEASE_BUF, ptr: 0x130004
+system/camerad/cameras/camera_util.cc: freeing cached allocation 0x7f921ff000 with size 112
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_RELEASE_BUF, ptr: 0x100001
+system/camerad/cameras/camera_util.cc: freeing cached allocation 0x7f921fd000 with size 196
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_RELEASE_BUF, ptr: 0x120003
+system/camerad/cameras/camera_util.cc: freeing cached allocation 0x7f909fa000 with size 324
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_RELEASE_BUF, ptr: 0x170007
+system/camerad/cameras/camera_util.cc: freeing cached allocation 0x7f909f3000 with size 368
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_RELEASE_BUF, ptr: 0x32000e
+system/camerad/cameras/camera_util.cc: freeing cached allocation 0x7f921f8000 with size 608
+-> /dev/v4l/by-path/platform-soc:qcom_cam-req-mgr-video-index0   CAM_REQ_MGR_RELEASE_BUF, ptr: 0x140005
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/ion             ION_IOC_FREE
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/ion             ION_IOC_FREE
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/ion             ION_IOC_FREE
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/ion             ION_IOC_FREE
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0180943 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 ffffffffc0100941 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40180932 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40040914 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0
+-> /dev/kgsl-3d0        -> /dev/kgsl-3d0 40200946 = 0

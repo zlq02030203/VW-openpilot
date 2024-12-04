@@ -54,7 +54,7 @@ if __name__ == "__main__":
   tearing_run_cnt = 0
   manager_path = BASEDIR + "/system/manager/manager.py"
   params = Params()
-  for _ in range(30):
+  for _ in range(60):
     run_cnt += 1
     print(f"====== {run_cnt} ======")
 
@@ -75,10 +75,11 @@ if __name__ == "__main__":
       print(" - tore ", tore, tearing_cnt)
       print(" - route", params.get("CurrentRoute", encoding="utf8"))
       print(f" - {tearing_run_cnt:03} / {run_cnt:03} ({tearing_run_cnt/run_cnt:.2%})")
-
-
+    except KeyboardInterrupt:
+      print("cleaning up")
+      os.system("pkill -f ./manager")
     finally:
       proc.terminate()
-      if proc.wait(60) is None:
+      if proc.wait(10) is None:
         proc.kill()
     #break
