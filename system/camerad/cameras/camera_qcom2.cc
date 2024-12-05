@@ -467,7 +467,7 @@ void CameraState::camera_open(MultiCameraState *multi_cam_state_, int camera_num
   multi_cam_state = multi_cam_state_;
   camera_num = camera_num_;
   enabled = enabled_;
-  if (!enabled) return;
+  //if (!enabled) return;
 
   sensor_fd = open_v4l_by_name_and_index("cam-sensor-driver", camera_num);
   assert(sensor_fd >= 0);
