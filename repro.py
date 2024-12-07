@@ -78,6 +78,7 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
       print("cleaning up")
       os.system("pkill -f ./manager")
+      break
     finally:
       proc.terminate()
       if proc.wait(10) is None:
