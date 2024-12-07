@@ -23,6 +23,7 @@ OnroadAlerts::Alert OnroadAlerts::getAlert(const SubMaster &sm, uint64_t started
   const uint64_t selfdrive_frame = sm.rcv_frame("selfdriveState");
 
   Alert a = {};
+  return {};
   if (selfdrive_frame >= started_frame) {  // Don't get old alert.
     a = {ss.getAlertText1().cStr(), ss.getAlertText2().cStr(),
          ss.getAlertType().cStr(), ss.getAlertSize(), ss.getAlertStatus()};
