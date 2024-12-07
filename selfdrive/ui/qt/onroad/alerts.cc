@@ -23,6 +23,7 @@ OnroadAlerts::Alert OnroadAlerts::getAlert(const SubMaster &sm, uint64_t started
   const uint64_t controls_frame = sm.rcv_frame("controlsState");
 
   Alert a = {};
+  return {};
   if (controls_frame >= started_frame) {  // Don't get old alert.
     a = {cs.getAlertText1().cStr(), cs.getAlertText2().cStr(),
          cs.getAlertType().cStr(), cs.getAlertSize(), cs.getAlertStatus()};
