@@ -37,8 +37,9 @@ def is_tearing(img):
       cv2.line(output_image, (0, i), (output_image.shape[1], i), (0, 0, 255), 1)
       tearing = True
 
-  #cv2.imwrite(f"/data/tmp/frame_{run_cnt:03}_{frame_cnt:03}_{tearing}.png", image)
-  #cv2.imwrite(f"/data/tmp/frame_{run_cnt:03}_{frame_cnt:03}_debug.png", output_image)
+  if tearing:
+    cv2.imwrite(f"/data/tmp/frame_{run_cnt:03}_{frame_cnt:03}_{tearing}.png", image)
+    cv2.imwrite(f"/data/tmp/frame_{run_cnt:03}_{frame_cnt:03}_debug.png", output_image)
   return tearing
 
 if __name__ == "__main__":
@@ -61,6 +62,7 @@ if __name__ == "__main__":
     v = VisionIpcClient("camerad", VisionStreamType.VISION_STREAM_ROAD, True)
     try:
       proc = subprocess.Popen(["python", manager_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+      #proc = subprocess.Popen(["./camerad", ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, cwd="/data/openpilot/system/camerad/")
       while not v.connect(False):
         time.sleep(0.1)
       time.sleep(2)
@@ -70,7 +72,7 @@ if __name__ == "__main__":
         while (img := v.recv()) is None:
           time.sleep(0.1)
         tearing_cnt += is_tearing(img)
-      tore = tearing_cnt >= 1
+      tore = tearing_cnt >= 2
       tearing_run_cnt += tore
       print(" - tore ", tore, tearing_cnt)
       print(" - route", params.get("CurrentRoute", encoding="utf8"))
