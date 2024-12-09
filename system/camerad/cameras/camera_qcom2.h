@@ -9,7 +9,7 @@
 #include "common/params.h"
 #include "common/util.h"
 
-#define FRAME_BUF_COUNT 4
+#define FRAME_BUF_COUNT 2
 
 #define ROAD_FL_MM 8.0f
 #define WIDE_FL_MM 1.71f
