@@ -243,7 +243,7 @@ SpectraCamera::SpectraCamera(SpectraMaster *master, const CameraConfig &config, 
     is_raw(raw) {
   mm.init(m->video0_fd);
 
-  ife_buf_depth = is_raw ? 4 : VIPC_BUFFER_COUNT;
+  ife_buf_depth = is_raw ? 1 : VIPC_BUFFER_COUNT;
   assert(ife_buf_depth < MAX_IFE_BUFS);
 }
 
@@ -470,6 +470,7 @@ void add_patch(void *ptr, int n, int32_t dst_hdl, uint32_t dst_offset, int32_t s
 };
 
 void SpectraCamera::config_ife(int idx, int request_id, bool init) {
+  printf("config IFE - idx %d, request_id %d, init %d\n", idx, request_id, init);
   /*
     Handles initial + per-frame IFE config.
     * IFE = Image Front End
@@ -805,8 +806,6 @@ bool SpectraCamera::openSensor() {
 }
 
 void SpectraCamera::configISP() {
-  if (!enabled) return;
-
   struct cam_isp_in_port_info in_port_info = {
     // ISP input to the CSID
     .res_type = cc.phy,
@@ -896,8 +895,6 @@ void SpectraCamera::configISP() {
 }
 
 void SpectraCamera::configICP() {
-  if (!enabled) return;
-
   /*
     Configures both the ICP and BPS.
   */
@@ -1066,19 +1063,18 @@ void SpectraCamera::camera_close() {
 }
 
 void SpectraCamera::handle_camera_event(const cam_req_mgr_message *event_data) {
-  if (!enabled) return;
-
-  uint64_t timestamp = event_data->u.frame_msg.timestamp;
   uint64_t main_id = event_data->u.frame_msg.frame_id;
   uint64_t real_id = event_data->u.frame_msg.request_id;
 
   if (real_id != 0) { // next ready
-    if (real_id == 1) {idx_offset = main_id;}
+    if (real_id == 1) {
+      idx_offset = main_id;
+    }
     int buf_idx = (real_id - 1) % ife_buf_depth;
 
     // check for skipped frames
     if (main_id > frame_id_last + 1 && !skipped) {
-      LOGE("camera %d realign", cc.camera_num);
+      LOGE("camera %d realign, main_id %lu, frame_id_last %lu", cc.camera_num, main_id, frame_id_last);
       clear_req_queue();
       enqueue_req_multi(real_id + 1, ife_buf_depth - 1, 0);
       skipped = true;
@@ -1099,7 +1095,8 @@ void SpectraCamera::handle_camera_event(const cam_req_mgr_message *event_data) {
     auto &meta_data = buf.frame_metadata[buf_idx];
     meta_data.frame_id = main_id - idx_offset;
     meta_data.request_id = real_id;
-    meta_data.timestamp_sof = timestamp; // this is timestamped in the kernel's SOF IRQ callback
+    // this is timestamped in the kernel's SOF IRQ callback
+    meta_data.timestamp_sof = event_data->u.frame_msg.timestamp;
 
     // dispatch
     enqueue_req_multi(real_id + ife_buf_depth, 1, 1);
