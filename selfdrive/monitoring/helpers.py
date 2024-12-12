@@ -309,7 +309,8 @@ class DriverMonitoring:
     if self.terminal_alert_cnt >= self.settings._MAX_TERMINAL_ALERTS or \
        self.terminal_time >= self.settings._MAX_TERMINAL_DURATION or \
        self.always_on and self.awareness <= self.threshold_prompt:
-      self.current_events.add(EventName.tooDistracted)
+      pass
+      #self.current_events.add(EventName.tooDistracted)
 
     always_on_valid = self.always_on and not wrong_gear
     if (driver_engaged and self.awareness > 0 and not self.active_monitoring_mode) or \
@@ -365,7 +366,8 @@ class DriverMonitoring:
       alert = EventName.preDriverDistracted if self.active_monitoring_mode else EventName.preDriverUnresponsive
 
     if alert is not None:
-      self.current_events.add(alert)
+      pass
+      #self.current_events.add(alert)
 
 
   def get_state_packet(self, valid=True):
