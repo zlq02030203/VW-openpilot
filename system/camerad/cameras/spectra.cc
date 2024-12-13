@@ -53,12 +53,12 @@ int do_sync_control(int fd, uint32_t id, void *handle, uint32_t size) {
   };
   int ret = HANDLE_EINTR(ioctl(fd, CAM_PRIVATE_IOCTL_CMD, &arg));
 
-  int32_t ioctl_result = (int32_t)arg.result;
+  int32_t ioctl_result = static_cast<int32_t>(arg.result);
   if (ret < 0) {
     LOGE("CAM_SYNC error: id %u - errno %d - ret %d - ioctl_result %d", id, errno, ret, ioctl_result);
     return ret;
   }
-  if (ioctl_result < 0) {
+  if (ioctl_result != 0) {
     LOGE("CAM_SYNC error: id %u - errno %d - ret %d - ioctl_result %d", id, errno, ret, ioctl_result);
     return ioctl_result;
   }
@@ -242,6 +242,9 @@ SpectraCamera::SpectraCamera(SpectraMaster *master, const CameraConfig &config, 
     cc(config),
     is_raw(raw) {
   mm.init(m->video0_fd);
+
+  ife_buf_depth = is_raw ? 4 : VIPC_BUFFER_COUNT;
+  assert(ife_buf_depth < MAX_IFE_BUFS);
 }
 
 SpectraCamera::~SpectraCamera() {
@@ -261,11 +264,11 @@ int SpectraCamera::clear_req_queue() {
 }
 
 void SpectraCamera::camera_open(VisionIpcServer *v, cl_device_id device_id, cl_context ctx) {
-  if (!enabled) return;
-
   if (!openSensor()) {
     return;
   }
+
+  if (!enabled) return;
 
   // size is driven by all the HW that handles frames,
   // the video encoder has certain alignment requirements in this case
@@ -286,14 +289,15 @@ void SpectraCamera::camera_open(VisionIpcServer *v, cl_device_id device_id, cl_c
   linkDevices();
 
   LOGD("camera init %d", cc.camera_num);
-  buf.init(device_id, ctx, this, v, FRAME_BUF_COUNT, cc.stream_type);
+  buf.init(device_id, ctx, this, v, ife_buf_depth, cc.stream_type);
   camera_map_bufs();
+  enqueue_req_multi(1, ife_buf_depth, 0);
 }
 
 void SpectraCamera::enqueue_req_multi(uint64_t start, int n, bool dp) {
   for (uint64_t i = start; i < start + n; ++i) {
-    request_ids[(i - 1) % FRAME_BUF_COUNT] = i;
-    enqueue_buffer((i - 1) % FRAME_BUF_COUNT, dp);
+    request_ids[(i - 1) % ife_buf_depth] = i;
+    enqueue_buffer((i - 1) % ife_buf_depth, dp);
   }
 }
 
@@ -846,16 +850,18 @@ void SpectraCamera::enqueue_buffer(int i, bool dp) {
   int ret;
   uint64_t request_id = request_ids[i];
 
-  if (buf_handle_raw[i] && sync_objs[i]) {
+  if (sync_objs[i]) {
+    // SOF has come in, wait until readout is complete
     struct cam_sync_wait sync_wait = {0};
 
     // wait for ife
     sync_wait.sync_obj = sync_objs[i];
-    sync_wait.timeout_ms = 50; // max dt tolerance, typical should be 23
+    sync_wait.timeout_ms = 100;
     ret = do_sync_control(m->cam_sync_fd, CAM_SYNC_WAIT, &sync_wait, sizeof(sync_wait));
     if (ret != 0) {
-      LOGE("failed to wait for sync: %d %d", ret, sync_wait.sync_obj);
       // TODO: handle frame drop cleanly
+      // when this happens, it messes up future frames
+      LOGE("failed to wait for sync: %d %d", ret, sync_wait.sync_obj);
     }
 
     if (is_raw) {
@@ -871,7 +877,9 @@ void SpectraCamera::enqueue_buffer(int i, bool dp) {
 
     buf.frame_metadata[i].timestamp_end_of_isp = (uint64_t)nanos_since_boot();
     buf.frame_metadata[i].timestamp_eof = buf.frame_metadata[i].timestamp_sof + sensor->readout_time_ns;
-    if (dp) buf.queue(i);
+    if (dp) {
+      buf.queue(i);
+    }
 
     // destroy old output fence
     for (auto so : {sync_objs, sync_objs_bps_out}) {
@@ -925,6 +933,7 @@ void SpectraCamera::camera_map_bufs() {
   for (int i = 0; i < FRAME_BUF_COUNT; i++) {
     // map our VisionIPC bufs into ISP memory
     struct cam_mem_mgr_map_cmd mem_mgr_map_cmd = {0};
+    mem_mgr_map_cmd.flags = CAM_MEM_FLAG_HW_READ_WRITE;
     mem_mgr_map_cmd.mmu_hdls[0] = m->device_iommu;
     mem_mgr_map_cmd.num_hdl = 1;
     if (is_raw) {
@@ -933,23 +942,22 @@ void SpectraCamera::camera_map_bufs() {
     }
     mem_mgr_map_cmd.flags = CAM_MEM_FLAG_HW_READ_WRITE;
 
-    // RAW bayer images
-    mem_mgr_map_cmd.fd = buf.camera_bufs_raw[i].fd;
-    ret = do_cam_control(m->video0_fd, CAM_REQ_MGR_MAP_BUF, &mem_mgr_map_cmd, sizeof(mem_mgr_map_cmd));
-    assert(ret == 0);
-    LOGD("map buf req: (fd: %d) 0x%x %d", buf.camera_bufs_raw[i].fd, mem_mgr_map_cmd.out.buf_handle, ret);
-    buf_handle_raw[i] = mem_mgr_map_cmd.out.buf_handle;
-
-    // TODO: this needs to match camera bufs length
-    // final processed images
-    VisionBuf *vb = buf.vipc_server->get_buffer(buf.stream_type, i);
-    mem_mgr_map_cmd.fd = vb->fd;
-    ret = do_cam_control(m->video0_fd, CAM_REQ_MGR_MAP_BUF, &mem_mgr_map_cmd, sizeof(mem_mgr_map_cmd));
-    assert(ret == 0);
-    LOGD("map buf req: (fd: %d) 0x%x %d", vb->fd, mem_mgr_map_cmd.out.buf_handle, ret);
-    buf_handle_yuv[i] = mem_mgr_map_cmd.out.buf_handle;
+    if (is_raw) {
+      // RAW bayer images
+      mem_mgr_map_cmd.fd = buf.camera_bufs_raw[i].fd;
+      ret = do_cam_control(m->video0_fd, CAM_REQ_MGR_MAP_BUF, &mem_mgr_map_cmd, sizeof(mem_mgr_map_cmd));
+      assert(ret == 0);
+      LOGD("map buf req: (fd: %d) 0x%x %d", buf.camera_bufs_raw[i].fd, mem_mgr_map_cmd.out.buf_handle, ret);
+      buf_handle_raw[i] = mem_mgr_map_cmd.out.buf_handle;
+    } else {
+      // final processed images
+      VisionBuf *vb = buf.vipc_server->get_buffer(buf.stream_type, i);
+      mem_mgr_map_cmd.fd = vb->fd;
+      ret = do_cam_control(m->video0_fd, CAM_REQ_MGR_MAP_BUF, &mem_mgr_map_cmd, sizeof(mem_mgr_map_cmd));
+      LOGD("map buf req: (fd: %d) 0x%x %d", vb->fd, mem_mgr_map_cmd.out.buf_handle, ret);
+      buf_handle_yuv[i] = mem_mgr_map_cmd.out.buf_handle;
+    }
   }
-  enqueue_req_multi(1, FRAME_BUF_COUNT, 0);
 }
 
 bool SpectraCamera::openSensor() {
@@ -1062,7 +1070,7 @@ void SpectraCamera::configISP() {
   // allocate IFE memory, then configure it
   ife_cmd.init(m, 67984, 0x20,
                CAM_MEM_FLAG_HW_READ_WRITE | CAM_MEM_FLAG_KMD_ACCESS | CAM_MEM_FLAG_UMD_ACCESS | CAM_MEM_FLAG_CMD_BUF_TYPE,
-               m->device_iommu, m->cdm_iommu, FRAME_BUF_COUNT);
+               m->device_iommu, m->cdm_iommu, ife_buf_depth);
   if (!is_raw) {
     ife_gamma_lut.init(m, 64*sizeof(uint32_t), 0x20,
                        CAM_MEM_FLAG_HW_READ_WRITE | CAM_MEM_FLAG_KMD_ACCESS | CAM_MEM_FLAG_UMD_ACCESS | CAM_MEM_FLAG_CMD_BUF_TYPE,
@@ -1137,6 +1145,12 @@ void SpectraCamera::configICP() {
   LOGD("acquire icp dev");
 
   release(m->video0_fd, cfg_handle);
+
+  // BPS CMD buffer
+  unsigned char striping_out[] = "\x00";
+  bps_cmd.init(m, ife_buf_depth*ALIGNED_SIZE(464, 0x20), 0x20,
+               CAM_MEM_FLAG_HW_READ_WRITE | CAM_MEM_FLAG_KMD_ACCESS | CAM_MEM_FLAG_UMD_ACCESS | CAM_MEM_FLAG_CMD_BUF_TYPE | CAM_MEM_FLAG_HW_SHARED_ACCESS,
+               m->icp_device_iommu);
 
   // init BPS buffers
   bps_cmd.init(m, 464, 0x20,
@@ -1275,9 +1289,8 @@ void SpectraCamera::camera_close() {
     ret = device_control(csiphy_fd, CAM_RELEASE_DEV, session_handle, csiphy_dev_handle);
     LOGD("release csiphy: %d", ret);
 
-    for (int i = 0; i < FRAME_BUF_COUNT; i++) {
-      release(m->video0_fd, buf_handle_yuv[i]);
-      release(m->video0_fd, buf_handle_raw[i]);
+    for (int i = 0; i < ife_buf_depth; i++) {
+      release(m->video0_fd, is_raw ? buf_handle_raw[i] : buf_handle_yuv[i]);
     }
     LOGD("released buffers");
   }
@@ -1300,13 +1313,13 @@ void SpectraCamera::handle_camera_event(const cam_req_mgr_message *event_data) {
 
   if (real_id != 0) { // next ready
     if (real_id == 1) {idx_offset = main_id;}
-    int buf_idx = (real_id - 1) % FRAME_BUF_COUNT;
+    int buf_idx = (real_id - 1) % ife_buf_depth;
 
     // check for skipped frames
     if (main_id > frame_id_last + 1 && !skipped) {
       LOGE("camera %d realign", cc.camera_num);
       clear_req_queue();
-      enqueue_req_multi(real_id + 1, FRAME_BUF_COUNT - 1, 0);
+      enqueue_req_multi(real_id + 1, ife_buf_depth - 1, 0);
       skipped = true;
     } else if (main_id == frame_id_last + 1) {
       skipped = false;
@@ -1315,7 +1328,7 @@ void SpectraCamera::handle_camera_event(const cam_req_mgr_message *event_data) {
     // check for dropped requests
     if (real_id > request_id_last + 1) {
       LOGE("camera %d dropped requests %ld %ld", cc.camera_num, real_id, request_id_last);
-      enqueue_req_multi(request_id_last + 1 + FRAME_BUF_COUNT, real_id - (request_id_last + 1), 0);
+      enqueue_req_multi(request_id_last + 1 + ife_buf_depth, real_id - (request_id_last + 1), 0);
     }
 
     // metas
@@ -1328,12 +1341,12 @@ void SpectraCamera::handle_camera_event(const cam_req_mgr_message *event_data) {
     meta_data.timestamp_sof = timestamp; // this is timestamped in the kernel's SOF IRQ callback
 
     // dispatch
-    enqueue_req_multi(real_id + FRAME_BUF_COUNT, 1, 1);
+    enqueue_req_multi(real_id + ife_buf_depth, 1, 1);
   } else { // not ready
     if (main_id > frame_id_last + 10) {
       LOGE("camera %d reset after half second of no response", cc.camera_num);
       clear_req_queue();
-      enqueue_req_multi(request_id_last + 1, FRAME_BUF_COUNT, 0);
+      enqueue_req_multi(request_id_last + 1, ife_buf_depth, 0);
       frame_id_last = main_id;
       skipped = true;
     }
