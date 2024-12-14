@@ -930,7 +930,7 @@ void SpectraCamera::enqueue_buffer(int i, bool dp) {
 
 void SpectraCamera::camera_map_bufs() {
   int ret;
-  for (int i = 0; i < FRAME_BUF_COUNT; i++) {
+  for (int i = 0; i < ife_buf_depth; i++) {
     // map our VisionIPC bufs into ISP memory
     struct cam_mem_mgr_map_cmd mem_mgr_map_cmd = {0};
     mem_mgr_map_cmd.flags = CAM_MEM_FLAG_HW_READ_WRITE;
@@ -1147,7 +1147,7 @@ void SpectraCamera::configICP() {
   release(m->video0_fd, cfg_handle);
 
   // BPS CMD buffer
-  unsigned char striping_out[] = "\x00";
+  //unsigned char striping_out[] = "\x00";
   bps_cmd.init(m, ife_buf_depth*ALIGNED_SIZE(464, 0x20), 0x20,
                CAM_MEM_FLAG_HW_READ_WRITE | CAM_MEM_FLAG_KMD_ACCESS | CAM_MEM_FLAG_UMD_ACCESS | CAM_MEM_FLAG_CMD_BUF_TYPE | CAM_MEM_FLAG_HW_SHARED_ACCESS,
                m->icp_device_iommu);
@@ -1155,7 +1155,7 @@ void SpectraCamera::configICP() {
   // init BPS buffers
   bps_cmd.init(m, 464, 0x20,
                CAM_MEM_FLAG_HW_READ_WRITE | CAM_MEM_FLAG_KMD_ACCESS | CAM_MEM_FLAG_UMD_ACCESS | CAM_MEM_FLAG_CMD_BUF_TYPE | CAM_MEM_FLAG_HW_SHARED_ACCESS,
-               m->icp_device_iommu, 0, FRAME_BUF_COUNT);
+               m->icp_device_iommu, 0, ife_buf_depth);
 
   bps_iq.init(m, sizeof(BpsIQSettings), 0x20,
               CAM_MEM_FLAG_HW_READ_WRITE | CAM_MEM_FLAG_KMD_ACCESS | CAM_MEM_FLAG_UMD_ACCESS | CAM_MEM_FLAG_CMD_BUF_TYPE | CAM_MEM_FLAG_HW_SHARED_ACCESS,
