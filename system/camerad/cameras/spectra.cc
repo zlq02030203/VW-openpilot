@@ -902,7 +902,7 @@ void SpectraCamera::enqueue_buffer(int i, bool dp) {
   }
   sync_objs[i] = sync_create.sync_obj;
 
-  if (is_raw) {
+  if (icp_dev_handle > 0) {
     ret = do_cam_control(m->cam_sync_fd, CAM_SYNC_CREATE, &sync_create, sizeof(sync_create));
     if (ret != 0) {
       LOGE("failed to create fence: %d %d", ret, sync_create.sync_obj);
@@ -936,11 +936,10 @@ void SpectraCamera::camera_map_bufs() {
     mem_mgr_map_cmd.flags = CAM_MEM_FLAG_HW_READ_WRITE;
     mem_mgr_map_cmd.mmu_hdls[0] = m->device_iommu;
     mem_mgr_map_cmd.num_hdl = 1;
-    if (is_raw) {
+    if (icp_dev_handle > 0) {
       mem_mgr_map_cmd.num_hdl = 2;
       mem_mgr_map_cmd.mmu_hdls[1] = m->icp_device_iommu;
     }
-    mem_mgr_map_cmd.flags = CAM_MEM_FLAG_HW_READ_WRITE;
 
     if (is_raw) {
       // RAW bayer images
@@ -1092,8 +1091,6 @@ void SpectraCamera::configISP() {
 }
 
 void SpectraCamera::configICP() {
-  if (!enabled) return;
-
   /*
     Configures both the ICP and BPS.
   */
@@ -1280,6 +1277,10 @@ void SpectraCamera::camera_close() {
 
     // release devices
     LOGD("-- Release devices");
+    if (icp_dev_handle > 0) {
+      ret = device_control(m->icp_fd, CAM_RELEASE_DEV, session_handle, icp_dev_handle);
+      LOGD("release icp: %d", ret);
+    }
     ret = device_control(m->isp_fd, CAM_RELEASE_DEV, session_handle, isp_dev_handle);
     LOGD("release isp: %d", ret);
     if (is_raw) {
