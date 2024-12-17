@@ -19,7 +19,6 @@ from openpilot.selfdrive.modeld.models.commonmodel_pyx import CLContext, Monitor
 from openpilot.selfdrive.modeld.runners import ModelRunner, Runtime
 from openpilot.selfdrive.modeld.parse_model_outputs import sigmoid
 
-MODEL_WIDTH, MODEL_HEIGHT = DM_INPUT_SIZE
 CALIB_LEN = 3
 FEATURE_LEN = 512
 OUTPUT_SIZE = 84 + FEATURE_LEN
