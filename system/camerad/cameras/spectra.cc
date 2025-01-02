@@ -450,6 +450,14 @@ int SpectraCamera::sensors_init() {
   return ret;
 }
 
+void add_patch(void *ptr, int n, int32_t dst_hdl, uint32_t dst_offset, int32_t src_hdl, uint32_t src_offset) {
+  struct cam_patch_desc *p = (struct cam_patch_desc *)((unsigned char*)ptr + sizeof(struct cam_patch_desc)*n);
+  p->dst_buf_hdl = dst_hdl;
+  p->src_buf_hdl = src_hdl;
+  p->dst_offset = dst_offset;
+  p->src_offset = src_offset;
+};
+
 void SpectraCamera::config_bps(int idx, int request_id) {
   /*
     Handles per-frame BPS config.
@@ -637,14 +645,6 @@ void SpectraCamera::config_bps(int idx, int request_id) {
   int ret = device_config(m->icp_fd, session_handle, icp_dev_handle, cam_packet_handle);
   assert(ret == 0);
 }
-
-void add_patch(void *ptr, int n, int32_t dst_hdl, uint32_t dst_offset, int32_t src_hdl, uint32_t src_offset) {
-  struct cam_patch_desc *p = (struct cam_patch_desc *)((unsigned char*)ptr + sizeof(struct cam_patch_desc)*n);
-  p->dst_buf_hdl = dst_hdl;
-  p->src_buf_hdl = src_hdl;
-  p->dst_offset = dst_offset;
-  p->src_offset = src_offset;
-};
 
 void SpectraCamera::config_ife(int idx, int request_id, bool init) {
   /*
@@ -1144,7 +1144,6 @@ void SpectraCamera::configICP() {
   release(m->video0_fd, cfg_handle);
 
   // BPS CMD buffer
-  //unsigned char striping_out[] = "\x00";
   bps_cmd.init(m, ife_buf_depth*ALIGNED_SIZE(464, 0x20), 0x20,
                CAM_MEM_FLAG_HW_READ_WRITE | CAM_MEM_FLAG_KMD_ACCESS | CAM_MEM_FLAG_UMD_ACCESS | CAM_MEM_FLAG_CMD_BUF_TYPE | CAM_MEM_FLAG_HW_SHARED_ACCESS,
                m->icp_device_iommu);
