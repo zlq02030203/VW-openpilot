@@ -4,7 +4,7 @@
 #include "system/camerad/sensors/sensor.h"
 
 
-int build_update(uint8_t *dst, const SensorInfo *s, std::vector<uint32_t> &patches) {
+int build_update(uint8_t *dst, const SensorInfo *s, std::vector<uint32_t> &patches, bool lsc_enable) {
   uint8_t *start = dst;
 
   dst += write_random(dst, {
@@ -34,7 +34,7 @@ int build_update(uint8_t *dst, const SensorInfo *s, std::vector<uint32_t> &patch
   });
 
   dst += write_cont(dst, 0x40, {
-    0x00000c06, // (1<<8) to enable vignetting correction
+    0x00000c06 | ((uint32_t)lsc_enable << 8),
   });
 
   dst += write_cont(dst, 0x48, {
@@ -76,11 +76,11 @@ int build_update(uint8_t *dst, const SensorInfo *s, std::vector<uint32_t> &patch
 }
 
 
-int build_initial_config(uint8_t *dst, const SensorInfo *s, std::vector<uint32_t> &patches) {
+int build_initial_config(uint8_t *dst, const SensorInfo *s, std::vector<uint32_t> &patches, bool lsc_enable) {
   uint8_t *start = dst;
 
   // start with the every frame config
-  dst += build_update(dst, s, patches);
+  dst += build_update(dst, s, patches, lsc_enable);
 
   uint64_t addr;
 
@@ -124,11 +124,15 @@ int build_initial_config(uint8_t *dst, const SensorInfo *s, std::vector<uint32_t
   */
 
   // vignetting correction
+  int bsz = 12;
   dst += write_cont(dst, 0x6bc, {
     0x0b3c0000,
-    0x00670067,
-    0xd3b1300c,
-    0x13b1300c,
+    // 0x00670067,
+    ((103 << 16) + 103), // Y size, X size
+    // 0xd3b1300c,
+    (((uint32_t)3 << 0x1e) + ((uint32_t)(1048576 / (bsz+1)) << 0xc) + bsz), // interp factor, y delta, y height
+    // 0x13b1300c,
+    (((uint32_t)(1048576 / (bsz+1)) << 0xc) + bsz), // x delta, x height
     0x00670067,
     0xd3b1300c,
     0x13b1300c,
