@@ -181,12 +181,12 @@ int build_initial_config(uint8_t *dst, const SensorInfo *s, std::vector<uint32_t
   // TODO: remove this
   dst += write_cont(dst, 0xa3c, {
     0x00000003,
-    ((s->frame_width - 1) << 16) | (s->frame_width - 1),
+    ((s->frame_width / s->out_scale - 1) << 16) | (s->frame_width - 1),
     0x30036666,
     0x00000000,
     0x00000000,
     s->frame_width - 1,
-    ((s->frame_height - 1) << 16) | (s->frame_height - 1),
+    ((s->frame_height / s->out_scale - 1) << 16) | (s->frame_height - 1),
     0x30036666,
     0x00000000,
     0x00000000,
@@ -194,12 +194,12 @@ int build_initial_config(uint8_t *dst, const SensorInfo *s, std::vector<uint32_t
   });
   dst += write_cont(dst, 0xa68, {
     0x00000003,
-    ((s->frame_width/2 - 1) << 16) | (s->frame_width - 1),
+    ((s->frame_width / s->out_scale / 2 - 1) << 16) | (s->frame_width - 1),
     0x3006cccc,
     0x00000000,
     0x00000000,
     s->frame_width - 1,
-    ((s->frame_height/2 - 1) << 16) | (s->frame_height - 1),
+    ((s->frame_height / s->out_scale / 2 - 1) << 16) | (s->frame_height - 1),
     0x3006cccc,
     0x00000000,
     0x00000000,
@@ -208,12 +208,12 @@ int build_initial_config(uint8_t *dst, const SensorInfo *s, std::vector<uint32_t
 
   // cropping
   dst += write_cont(dst, 0xe10, {
-    s->frame_height - 1,
-    s->frame_width - 1,
+    s->frame_height / s->out_scale - 1,
+    s->frame_width / s->out_scale - 1,
   });
   dst += write_cont(dst, 0xe30, {
-    s->frame_height/2 - 1,
-    s->frame_width - 1,
+    s->frame_height / s->out_scale / 2 - 1,
+    s->frame_width / s->out_scale - 1,
   });
   dst += write_cont(dst, 0xe18, {
     0x0ff00000,
