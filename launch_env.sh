@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-export FINGERPRINT=""
+export FINGERPRINT="VOLKSWAGEN_PASSAT_MK8"
 export OMP_NUM_THREADS=1
 export MKL_NUM_THREADS=1
 export NUMEXPR_NUM_THREADS=1
